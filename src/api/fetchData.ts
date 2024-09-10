@@ -7,7 +7,7 @@ interface fetchData {
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
-const apiKey: string = '';
+const apiKey: string = '0d44b6cdd7b6567c07cb6c7cc6635ec0';
 
 // Create an axios instance with default configuration
 const axiosInstance = axios.create({

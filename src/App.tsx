@@ -1,35 +1,15 @@
-import React, { useEffect } from 'react'
-import fetchData from './api/fetchData'
-
-interface fetchMovieTypes{
-  fetchMovie:() => Promise<void>;
-  fetchMovieRecommendation:() => Promise<void>
-}
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
 
 
-const App:React.FC<fetchMovieTypes> = () => {
-  const fetchMovie = async () => {
-    const response = await fetchData.fetchMovie(19995)
-    console.log(response)
-  }
- 
-  const fetchMovieRecommendation = async () => {
-    try {
-      const response = await fetchData.fetchMovieRecommendation(19995)
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchMovie()
-    fetchMovieRecommendation()
-  }, [])
+const App:React.FC = () => {
   return (
-    <div>
-      
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+      </Routes>
+    </Router>
   )
 }
 
