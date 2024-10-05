@@ -44,7 +44,7 @@ const fetchData: fetchData = {
     fetchPopularMovies: async () => {
         try {
             const response = await axiosInstance.get(`/movie/popular`)
-            return response.data
+            return response.data.results
         } catch (error) {
             console.log(error)
             return error

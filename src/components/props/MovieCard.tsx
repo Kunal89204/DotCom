@@ -1,28 +1,84 @@
-import { Card, CardBody, Image, CardFooter, Box, Flex, Text } from "@chakra-ui/react"
+import { Card, CardBody, Image, CardFooter, Box, Flex, Text, VStack, Heading } from "@chakra-ui/react"
 import { LuTv } from "react-icons/lu";
+import { MovieTypes } from "../../types/TVShowTypes";
 
-const MovieCard = () => {
+const MovieCard = ({ title, poster_path }: MovieTypes) => {
   return (
-    <Card padding={0} margin={0} borderRadius={0} overflow="hidden">
-        <CardBody padding={0} margin={0}>
-            <Image 
-                src={`https://image.tmdb.org/t/p/original/wy4tkwuoWMGEa5Wi8dCvLVuxBzt.jpg`} 
-                fallbackSrc="https://via.placeholder.com/342" // Placeholder in case the image doesn't load
-                alt={"Movie Image"} // Dynamically use movie name
-                w="100%" // Ensure the image takes full width
-                h="auto"
-            />
-        </CardBody>
-        <CardFooter padding={0} margin={0} bg={'black'} color={'white'}>
-            <Flex justifyContent={'space-between'} py={2} width={'100%'}><Box><LuTv />
-            <Text color={'red'}>Hi</Text>
-            </Box>
-            <Text>2019</Text>
+    <Card padding={0} margin={0} borderRadius={0} width={"12%"} _hover={{ cursor: 'pointer' }} overflow={'visible'}>
+
+      {/* Adding group prop to CardBody for group hover effects */}
+      <CardBody position={'relative'} padding={0} margin={0} _hover={{ cursor: 'pointer' }} role="group" overflow={'visible'}>
+        {/* Box opacity changes when CardBody (group) is hovered */}
+        <Box
+          position={'absolute'}
+          left={'50%'}
+          bottom={'50%'}
+          zIndex={100}
+          width={'0'}
+          height={'0'}
+          overflow={'hidden'}
+          bg={'gray'}
+          scale={'0px'} // Initially hidden
+          _groupHover={{ width: '300px', height: 'max-content', bg: 'white' }} // Changes opacity when CardBody is hovered
+          transition={'0.35s'}
+        >
+          <VStack spacing={3} alignItems={'start'} h={'100%'} justify={'center'} padding={4} color="black">
+            {/* Movie Title */}
+            <Heading size="md" color="red.400">Avatar: The Way of Water</Heading>
+
+            {/* Popularity and additional info */}
+            <Flex w="100%" justifyContent="space-between" alignItems="center" fontSize="sm">
+              <Text fontWeight="bold" color="gray.300">HD</Text>
+              <Text fontWeight="bold" color="yellow.300">IMDB 7.7</Text>
+              <Text fontWeight="bold" color="gray.300">2022</Text>
+              <Text fontWeight="bold" color="gray.300">192min</Text>
             </Flex>
-        </CardFooter >
+
+            {/* Description */}
+            <Text fontSize="sm" noOfLines={3} >
+              Set more than a decade after the events of the first film, “Avatar: The Way of Water” begins to tell the story of the Sully family...
+            </Text>
+
+            {/* Watch Now button */}
+            <Box mt={4}>
+              <a href="/Avatar-The-Way-of-Water.html">
+                <Box
+                  as="button"
+                  bg="red.400"
+                  color="white"
+                  px={4}
+                  py={2}
+                  borderRadius="md"
+                  _hover={{ bg: 'red.600' }}
+                >
+                  Watch Now
+                </Box>
+              </a>
+            </Box>
+          </VStack>
+
+        </Box>
+
+        <Image
+          src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+          fallbackSrc={`https://image.tmdb.org/t/p/342/${poster_path}`} // Placeholder in case the image doesn't load
+          alt={"Movie Image"} // Dynamically use movie name
+          w="100%" // Ensure the image takes full width
+          h="auto"
+        />
+      </CardBody>
+
+      <CardFooter padding={0} margin={0} bg={'black'} color={'white'}>
+        <Flex justifyContent={'space-between'} py={2} width={'100%'}>
+          <Box>
+            <LuTv />
+            <Text color={'red'} noOfLines={1}>{title}</Text>
+          </Box>
+          <Text>2019</Text>
+        </Flex>
+      </CardFooter>
     </Card>
   )
 }
 
-export default MovieCard
-
+export default MovieCard;

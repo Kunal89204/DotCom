@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 
 const PopularShows: React.FC = () => {
+  // Defining States
   const [popularTVShows, setPopularTVShows] = useState<TVShow[]>([]);
 
   // Fetch the popular TV shows from API
@@ -29,8 +30,8 @@ const PopularShows: React.FC = () => {
 
   return (
     <Box p={4}>
-      <Box>
-        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"small"}>
+      <Box py={10}>
+        <Text fontWeight={"semibold"} color={"gray.500"} >
           ONLINE STREAMING 
         </Text>
         <Text fontSize={"xxx-large"} fontWeight={"semibold"}>
@@ -38,7 +39,7 @@ const PopularShows: React.FC = () => {
         </Text>
       </Box>
 
-      <Box>
+      <Box pb={10}>
         <Swiper slidesPerView={5} spaceBetween={30} className="mySwiper">
           {popularTVShows.map((show) => (
             <SwiperSlide key={show.id}>
