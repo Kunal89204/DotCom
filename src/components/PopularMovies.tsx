@@ -1,56 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Text } from '@chakra-ui/react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import fetchData from '../api/fetchData'
-
-
+import { Box, Heading, Text } from "@chakra-ui/react";
+import MovieCard from "./props/MovieCard";
+import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css'
-import BigMovie from './props/BigMovie'
 
 
-interface TVShow{
-    id:number;
-    name:string;
-    poster_path: string;
-    overview: string;
-}
+const PopularMovies = () => {
+  return (
+    <Box bg={"black"} color={"white"}>
+      <Box textAlign={"center"} paddingY={"40px"}>
+        <Text color={"gray.400"}>ONLINE STREAMING</Text>
+        <Heading as={"h2"} fontWeight={'semibold'} fontSize={'45px'}>Popular Movies</Heading>
+      </Box>
 
-const PopularMovies: React.FC = () => {
-    const [popularTVShows, setPopularTVShows] = useState<TVShow[]>([])
+      <Box padding={'20px'}>
+     <Swiper
+      spaceBetween={50}
+      slidesPerView={6}
+     >
+        <SwiperSlide> <MovieCard /></SwiperSlide>
+        <SwiperSlide> <MovieCard /></SwiperSlide>
+        <SwiperSlide> <MovieCard /></SwiperSlide>
+     </Swiper>
+      </Box>
+    </Box>
+  );
+};
 
-    const fetchPopularTVShows:TVShow[] = async () => {
-        const response = await fetchData.fetchPopularTVShows()
-        console.log(response)
-        setPopularTVShows(response)
-    }
-
-    useEffect(() => {
-        fetchPopularTVShows()
-        console.log(popularTVShows)
-    }, [])
-    return (
-        <Box p={4}>
-            <Box>
-                <Text fontWeight={'semibold'} color={'gray.500'} fontSize={'small'}>ONLINE STREAMING</Text>
-                <Text fontSize={'xxx-large'} fontWeight={'semibold'}>Watch Show Online</Text>
-            </Box>
-
-            <Box>
-                <Swiper
-                slidesPerView={4}
-                spaceBetween={20}
-                className="mySwiper"
-                >
-                    <SwiperSlide className='bg-red-500'>
-                    <BigMovie />
-                    </SwiperSlide>
-                    
-                   
-                    
-                </Swiper>
-            </Box>
-        </Box>
-    )
-}
-
-export default PopularMovies
+export default PopularMovies;

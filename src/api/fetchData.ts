@@ -3,12 +3,13 @@ import axios from 'axios';
 interface fetchData {
     fetchMovie: (movieId: number) => Promise<void>;
     fetchMovieRecommendation: (movieId: number) => Promise<void>;
-    fetchPopularMovies: () => void;
-    fetchPopularTVShows:() => void;
+    fetchPopularMovies: () => Promise<any>;
+    fetchPopularTVShows:() => Promise<any>;
+    fetchTVShowDetails: (tvShowId: number) => Promise<any>;
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
-const apiKey: string = '';
+const apiKey: string = '0d44b6cdd7b6567c07cb6c7cc6635ec0';
 
 // Create an axios instance with default configuration
 const axiosInstance = axios.create({
@@ -58,7 +59,17 @@ const fetchData: fetchData = {
             console.log(error)
             return error
         }
-    }
+    },
+
+    fetchTVShowDetails: async (tvShowId: number) => {
+        try {
+            const response = await axiosInstance.get(`/tv/${tvShowId}`)
+            return response.data
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    },
 };
 
 export default fetchData;
