@@ -11,5 +11,18 @@ export interface TVShow {
   export interface MovieTypes {
     id?:number;
     title?:string;
-    poster_path?:string
-  }
+    poster_path?:string;
+    release_date:number;
+    vote_average:number;
+    overview:string;
+    genres:Array<GenreTypes>;
+    runtime:number
+    }
+
+
+
+// TVShowTypes.ts
+export interface GenreTypes {
+  id: number;
+  name: string;
+}
