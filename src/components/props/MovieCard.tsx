@@ -14,19 +14,22 @@ const MovieCard = ({ title, poster_path }: MovieTypes) => {
           left={'50%'}
           bottom={'50%'}
           zIndex={100}
+          backdropFilter='auto' backdropBlur='8px'
           width={'0'}
           height={'0'}
+          transform={'scale(0)'}
           overflow={'hidden'}
-          bg={'gray'}
-          scale={'0px'} // Initially hidden
-          _groupHover={{ width: '300px', height: 'max-content', bg: 'white' }} // Changes opacity when CardBody is hovered
+         
+          scale={'0px'} 
+          _groupHover={{ width: '300px', height: '250px',   backgroundSize: 'cover',   backgroundPosition: 'center',transform: 'scale(1)'}} 
+          
           transition={'0.35s'}
         >
+          
           <VStack spacing={3} alignItems={'start'} h={'100%'} justify={'center'} padding={4} color="black">
-            {/* Movie Title */}
+ 
             <Heading size="md" color="red.400">Avatar: The Way of Water</Heading>
 
-            {/* Popularity and additional info */}
             <Flex w="100%" justifyContent="space-between" alignItems="center" fontSize="sm">
               <Text fontWeight="bold" color="gray.300">HD</Text>
               <Text fontWeight="bold" color="yellow.300">IMDB 7.7</Text>
@@ -34,12 +37,12 @@ const MovieCard = ({ title, poster_path }: MovieTypes) => {
               <Text fontWeight="bold" color="gray.300">192min</Text>
             </Flex>
 
-            {/* Description */}
-            <Text fontSize="sm" noOfLines={3} >
+
+            <Text fontSize="sm" noOfLines={3} color={'white'} >
               Set more than a decade after the events of the first film, “Avatar: The Way of Water” begins to tell the story of the Sully family...
             </Text>
 
-            {/* Watch Now button */}
+
             <Box mt={4}>
               <a href="/Avatar-The-Way-of-Water.html">
                 <Box

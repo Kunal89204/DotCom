@@ -3,7 +3,8 @@ import { FaPlay } from "react-icons/fa";
 import { TVShow } from '../../types/TVShowTypes';
 import { useState } from 'react';
 
-const BigMovie = ({ name, poster_path }: TVShow) => {
+const BigMovie = ({ name, poster_path, number_of_seasons, first_air_date
+}: TVShow) => {
     const [imageSrc, setImageSrc] = useState(`https://image.tmdb.org/t/p/w342${poster_path}`); // Start with low-res
 
     const handleImageLoad = () => {
@@ -11,7 +12,7 @@ const BigMovie = ({ name, poster_path }: TVShow) => {
     };
 
     return (
-        <Box position="relative" className="custom-shadow-inset-black" height={'390'} >
+        <Box position="relative" className="custom-shadow-inset-black"  >
             {/* Movie Image */}
             <Image
                 src={imageSrc}
@@ -43,8 +44,8 @@ const BigMovie = ({ name, poster_path }: TVShow) => {
                 <Flex alignItems="center" gap={2}>
                     <FaPlay />
                     <Flex>
-                        <Text fontWeight="thin" fontSize="small">4 Seasons</Text>-
-                        <Text fontWeight="thin" fontSize="small">2015</Text>
+                        <Text fontWeight="thin" fontSize="small">{number_of_seasons} Seasons</Text>-
+                        <Text fontWeight="thin" fontSize="small">{first_air_date.toString().split("-")[0] }</Text>
                     </Flex>
                 </Flex>
             </Box>

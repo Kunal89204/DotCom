@@ -3,6 +3,8 @@ export interface TVShow {
     name: string;
     poster_path: string;
     overview?: string;
+    number_of_seasons:number;
+    first_air_date:number
   }
 
 

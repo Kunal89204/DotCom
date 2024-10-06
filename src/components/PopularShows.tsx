@@ -7,8 +7,6 @@ import "swiper/css";
 import BigMovie from "./props/BigMovie";
 import { Link } from "react-router-dom";
 
-
-
 const PopularShows: React.FC = () => {
   // Defining States
   const [popularTVShows, setPopularTVShows] = useState<TVShow[]>([]);
@@ -17,7 +15,20 @@ const PopularShows: React.FC = () => {
   const fetchPopularTVShows = async () => {
     try {
       const response = await fetchData.fetchPopularTVShows();
-      setPopularTVShows(response); // Set the fetched TV shows to state
+
+      // Fetch details for each show
+      const showDetailsPromises = response.map(async (el: TVShow | any) => {
+        const details = await fetchData.fetchTVShowDetails(el.id);
+        return details;
+      });
+
+      // Wait for all details to be fetched
+      const allShowDetails = await Promise.all(showDetailsPromises);
+
+      // Update the state with fetched show details
+      setPopularTVShows(allShowDetails);
+      console.log(popularTVShows) 
+      
     } catch (error) {
       console.log("Error fetching popular TV shows", error);
     }
@@ -25,16 +36,15 @@ const PopularShows: React.FC = () => {
 
   useEffect(() => {
     fetchPopularTVShows();
-    console.log(popularTVShows) 
   }, []);
 
   return (
     <Box p={4}>
       <Box py={10}>
         <Text fontWeight={"semibold"} color={"gray.500"} >
-          ONLINE STREAMING 
+          ONLINE STREAMING
         </Text>
-        <Text fontSize={"xxx-large"} fontWeight={"semibold"}>
+        <Text fontSize={"xxx-large"} fontWeight={"semibold"}> 
           Watch Popular Shows
         </Text>
       </Box>
@@ -43,7 +53,9 @@ const PopularShows: React.FC = () => {
         <Swiper slidesPerView={5} spaceBetween={30} className="mySwiper">
           {popularTVShows.map((show) => (
             <SwiperSlide key={show.id}>
-              <Link to={`/tv/${show.id}`}><BigMovie name={show.name} poster_path={show.poster_path} /></Link>{" "}
+              <Link to={`/tv/${show.id}`}>
+                <BigMovie name={show.name} poster_path={show.poster_path} number_of_seasons={show.number_of_seasons} first_air_date={show.first_air_date} />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
