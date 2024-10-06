@@ -74,7 +74,7 @@ const PopularMovies = () => {
             borderColor: "red",
           }}
         >
-          Explore All
+          Browse All Movies
         </Button>
       </Box>
     </Box>

@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import fetchData from "../api/fetchData";
 import { TVShow } from "../types/TVShowTypes";
 import "swiper/css";
-import BigMovie from "./props/BigMovie";
+import ShowCard from "./props/ShowCard";
 import { Link } from "react-router-dom";
 
 const PopularShows: React.FC = () => {
@@ -54,7 +54,7 @@ const PopularShows: React.FC = () => {
           {popularTVShows.map((show) => (
             <SwiperSlide key={show.id}>
               <Link to={`/tv/${show.id}`}>
-                <BigMovie name={show.name} poster_path={show.poster_path} number_of_seasons={show.number_of_seasons} first_air_date={show.first_air_date} />
+                <ShowCard name={show.name} poster_path={show.poster_path} number_of_seasons={show.number_of_seasons} first_air_date={show.first_air_date} overview={show.overview} />
               </Link>
             </SwiperSlide>
           ))}
