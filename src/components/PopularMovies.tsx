@@ -22,7 +22,6 @@ const PopularMovies = () => {
 
       const allMovieDetails = await Promise.all(movieDetailsPromises)
       setPopularMovies(allMovieDetails);
-      console.log(allMovieDetails)
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +52,7 @@ const PopularMovies = () => {
               overview={mov.overview}
               genres={mov.genres}
               runtime={mov.runtime}
+              section="popular"
                           />
           ))}
       </Flex>

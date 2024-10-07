@@ -6,10 +6,11 @@ interface fetchData {
     fetchPopularMovies: () => Promise<any>;
     fetchPopularTVShows:() => Promise<any>;
     fetchTVShowDetails: (tvShowId: number) => Promise<any>;
+    fetchTopRatedMovies: () => Promise<any>;
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
-const apiKey: string = '';
+const apiKey: string = '0d44b6cdd7b6567c07cb6c7cc6635ec0';
 
 // Create an axios instance with default configuration
 const axiosInstance = axios.create({
@@ -65,6 +66,16 @@ const fetchData: fetchData = {
         try {
             const response = await axiosInstance.get(`/tv/${tvShowId}`)
             return response.data
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    },
+
+    fetchTopRatedMovies: async () => {
+        try {
+            const response = await axiosInstance.get('/movie/top_rated') 
+            return response.data 
         } catch (error) {
             console.log(error)
             return error

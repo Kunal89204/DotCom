@@ -16,7 +16,8 @@ export interface TVShow {
     vote_average:number;
     overview:string;
     genres:Array<GenreTypes>;
-    runtime:number
+    runtime:number;
+    section: 'popular' | 'top'
     }
 
 

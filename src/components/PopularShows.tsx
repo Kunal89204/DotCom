@@ -27,7 +27,7 @@ const PopularShows: React.FC = () => {
 
       // Update the state with fetched show details
       setPopularTVShows(allShowDetails);
-      console.log(popularTVShows) 
+
       
     } catch (error) {
       console.log("Error fetching popular TV shows", error);

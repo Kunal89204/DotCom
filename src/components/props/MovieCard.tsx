@@ -2,7 +2,7 @@ import { Card, CardBody, Image, CardFooter, Box, Flex, Text, VStack, Heading, Po
 import { LuTv } from "react-icons/lu";
 import { MovieTypes } from "../../types/TVShowTypes";
 
-const MovieCard = ({ title, poster_path, release_date, vote_average, overview, genres, runtime }: MovieTypes) => {
+const MovieCard = ({ title, poster_path, release_date, vote_average, overview, genres, runtime, section }: MovieTypes) => {
   return (
     <Popover trigger="hover" placement="auto" gutter={10}>
 
@@ -20,12 +20,12 @@ const MovieCard = ({ title, poster_path, release_date, vote_average, overview, g
             />
           </CardBody>
 
-          <CardFooter padding={0} margin={0} bg={'black'} color={'white'}>
+          <CardFooter padding={0} margin={0} bg={section == 'top'?'white':'black'} color={section == 'top'?'black':'white'}>
             <Flex justifyContent={'space-between'} py={2} width={'100%'}>
               <Box>
                 <LuTv />
                 <Text color={'red'} noOfLines={1}>{genres[0].name}</Text>
-                <Text color={'white'} noOfLines={1}>{title}</Text>
+                <Text color={section == 'top'?'black':'white'} noOfLines={1}>{title}</Text>
               </Box>
               <Text>{release_date.toString().split('-')[0]}</Text>
             </Flex>
