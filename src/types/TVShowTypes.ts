@@ -20,6 +20,11 @@ export interface TVShow {
     section: 'popular' | 'top'
     }
 
+    export interface TVShowDetails {
+      id?: number;
+      title:string;
+    }
+
 
 
 // TVShowTypes.ts

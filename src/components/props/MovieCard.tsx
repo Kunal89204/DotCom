@@ -4,7 +4,7 @@ import { MovieTypes } from "../../types/TVShowTypes";
 
 const MovieCard = ({ title, poster_path, release_date, vote_average, overview, genres, runtime, section }: MovieTypes) => {
   return (
-    <Popover trigger="hover" placement="auto" gutter={10}>
+    <Popover trigger="hover" placement="auto" gutter={10} >
 
       <PopoverTrigger>
 

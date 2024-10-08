@@ -29,13 +29,13 @@ const TopRated = () => {
   }, []);
   return (
     <Box>
-      <Flex flexWrap={"wrap"} gap={10} p={10}>
-        <Box>
+      <Flex flexWrap={"wrap"} gap={8} p={10}>
+        <Box width={'26%'}>
           <Heading as={"h2"}>Top Rated Movies to Watch Now</Heading>
         </Box>
         {topMovies &&
           topMovies
-            .slice(0, 10)
+            .slice(0, 12)
             .map((mov) => (
               <MovieCard
                 key={mov.id}
