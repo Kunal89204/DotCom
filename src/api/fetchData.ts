@@ -7,6 +7,8 @@ interface fetchData {
     fetchPopularTVShows:() => Promise<any>;
     fetchTVShowDetails: (tvShowId: number) => Promise<any>;
     fetchTopRatedMovies: () => Promise<any>;
+    fetchTVSeasonDetails: (tvShowId:number,tvSeasonNo: number) => Promise<any>;
+    fetchTVEpisodeDetails: (tvShowId:number,tvSeasonNo: number, tvEpisodeNo: number) => Promise<any>;
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
@@ -62,6 +64,16 @@ const fetchData: fetchData = {
         }
     },
 
+    fetchTopRatedMovies: async () => {
+        try {
+            const response = await axiosInstance.get('/movie/top_rated') 
+            return response.data 
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    },
+
     fetchTVShowDetails: async (tvShowId: number) => {
         try {
             const response = await axiosInstance.get(`/tv/${tvShowId}`)
@@ -72,15 +84,27 @@ const fetchData: fetchData = {
         }
     },
 
-    fetchTopRatedMovies: async () => {
+    fetchTVSeasonDetails: async (tvShowId:number,tvSeasonNo: number) => {
         try {
-            const response = await axiosInstance.get('/movie/top_rated') 
-            return response.data 
+            const response = await axiosInstance.get(`/tv/${tvShowId}/season/${tvSeasonNo}`)
+            return response.data
         } catch (error) {
             console.log(error)
             return error
         }
     },
+
+    fetchTVEpisodeDetails: async (tvShowId:number,tvSeasonNo: number, tvEpisodeNo:number) => {
+        try {
+            const response = await axiosInstance.get(`/tv/${tvShowId}/season/${tvSeasonNo}/episode/${tvEpisodeNo}`)
+            return response.data
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    }
+
+    
 };
 
 export default fetchData;

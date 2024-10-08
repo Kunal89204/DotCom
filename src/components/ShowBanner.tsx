@@ -7,44 +7,76 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Image
+  Image,
 } from "@chakra-ui/react";
-
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import fetchData from "../api/fetchData";
-import { TVShowDetails } from "../types/TVShowTypes"; 
+import { TVShowDetails, TVSeasonDetails } from "../types/TVShowTypes"; // Ensure you have a proper type for season details
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ShowBanner = () => {
-    const [tvDetails, setTvDetails] = useState<TVShowDetails | null>(null);
+  const [tvDetails, setTvDetails] = useState<TVShowDetails | null>(null);
+  const [tvSeasonDetails, setTVSeasonDetails] = useState<TVSeasonDetails[]>([]);
 
-    const fetchTVShowDetails = async (id: number) => {
-        try {
-            const response = await fetchData.fetchTVShowDetails(id);
-            setTvDetails(response);
-        } catch (error) {
-            console.log("Error fetching TV show details:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchTVShowDetails(60574); // Call the fetch function with the TV show ID
-    }, []); // Empty dependency array to run only once on component mount
-
-    if (!tvDetails) {
-        return <div>Loading...</div>; // Render a loading state while fetching data
+  // Fetch TV Show Details
+  const fetchTVShowDetails = async (id: number) => {
+    try {
+      const response = await fetchData.fetchTVShowDetails(id);
+      setTvDetails(response);
+    } catch (error) {
+      console.error("Error fetching TV show details:", error);
     }
+  };
 
+  // Fetch all season details
+  const fetchAllSeasonDetails = async () => {
+    if (!tvDetails?.number_of_seasons || !tvDetails.id) return;
 
+    const allSeasonDetails = await Promise.all(
+      Array.from({ length: tvDetails.number_of_seasons }, async (_, index) => {
+        try {
+          const seasonNumber = index + 1;
+          const response = await fetchData.fetchTVSeasonDetails(
+            tvDetails!.id!,
+            seasonNumber
+          );
+          return response;
+        } catch (error) {
+          console.error(
+            `Error fetching details for season ${index + 1}:`,
+            error
+          );
+          return null; // Return null for error cases
+        }
+      })
+    );
+
+    setTVSeasonDetails(allSeasonDetails);
+  };
+
+  useEffect(() => {
+    fetchTVShowDetails(60574); // Call the fetch function with the TV show ID
+  }, []);
+
+  useEffect(() => {
+    if (tvDetails) {
+      fetchAllSeasonDetails(); // Fetch all seasons after tvDetails are fetched
+    }
+  }, [tvDetails]);
+
+  if (!tvDetails) {
+    return <div>Loading...</div>; // Render a loading state while fetching data
+  }
 
   return (
     <Box
       width={"100%"}
       height={"100vh"}
-      bgImage={`url( https://image.tmdb.org/t/p/original/wiE9doxiLwq3WCGamDIOb2PqBqc.jpg)`}
+      bgImage={`url( https://image.tmdb.org/t/p/original${tvDetails?.backdrop_path})`}
       backgroundPosition="center"
       backgroundSize={"cover"}
       backgroundRepeat="no-repeat"
@@ -56,45 +88,79 @@ const ShowBanner = () => {
         color={"white"}
         as={"h2"}
       >
-        Peaky Blinders
+        {tvDetails.name}
       </Heading>
       <Text textAlign={"center"} fontSize={"larger"} color={"white"}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe dicta
         quia earum{" "}
       </Text>
 
-      <Tabs border={"none"} pt={200}>
-        <TabList color={"white"} border={"none"} justifyContent={"center"}>
-          <Tab fontSize={"larger"}>Season 1</Tab>
-          <Tab fontSize={"larger"}>Season 2</Tab>
-          <Tab fontSize={"larger"}>Season 3</Tab>
-          <Tab fontSize={"larger"}>Season 4</Tab>
-          <Tab fontSize={"larger"}>Season 5</Tab>
-          <Tab fontSize={"larger"}>Season 6</Tab>
-        </TabList>
+      {tvDetails && (
+        <Tabs border={"none"} pt={250} variant="enclosed">
+          <TabList color={"white"} border={"none"} justifyContent={"center"}>
+            {Array.from({ length: tvDetails.number_of_seasons }, (_, index) => (
+              <Tab key={index} fontSize={"larger"}>
+                Season {index + 1}
+              </Tab>
+            ))}
+          </TabList>
 
-        <TabPanels  justifyContent={'center'} display={'flex'}>
-          <TabPanel width={'80%'} >
-            <Swiper
-              spaceBetween={10}
-              slidesPerView={5}
-              
-              
-            >
-              <SwiperSlide>
-                <Box>
-                    <Image src="https://image.tmdb.org/t/p/original/jh4Pc02TycNPcYyISkgthpxUmlM.jpg" />
-                </Box>
-              </SwiperSlide>
-              <SwiperSlide>Slide 2</SwiperSlide>
-              <SwiperSlide>Slide 3</SwiperSlide>
-              <SwiperSlide>Slide 4</SwiperSlide>
-              <SwiperSlide>Slide 4</SwiperSlide>
-             
-            </Swiper>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+          <TabPanels justifyContent={"center"} display={"flex"}>
+            {tvSeasonDetails.map((season, index) => (
+              <TabPanel
+                key={index}
+                width={"80%"}
+                transition="all 0.5s ease-in-out"
+                opacity={season ? 1 : 0}
+              >
+                {season && season.episodes ? (
+                  <Swiper
+                    spaceBetween={10}
+                    slidesPerView={5}
+                    breakpoints={{
+                      320: { slidesPerView: 1 },
+                      640: { slidesPerView: 2 },
+                      768: { slidesPerView: 3 },
+                      1024: { slidesPerView: 5 },
+                    }}
+                  >
+                    {season.episodes.map(
+                      (episode: any, episodeIndex: number) => (
+                        <SwiperSlide key={episodeIndex}>
+                          <Link to={``}>
+                            <Box
+                              borderRadius="md"
+                              overflow="visible" // Change overflow to visible
+                              transition="transform 0.3s" // Add transition for smooth effect
+                              _hover={{ transform: "scale(1.1)" }} // Scale the Box on hover
+                            >
+                              <Image
+                                src={`https://image.tmdb.org/t/p/original/${episode.still_path}`}
+                                alt={episode.name}
+                                width="100%"
+                                height="auto"
+                                maxHeight={"150px"}
+                                objectFit="cover" // Ensure images cover the area without distortion
+                              />
+                              <Text color="white" fontSize="large" py={2}>
+                                {episode.name}
+                              </Text>
+                            </Box>
+                          </Link>
+                        </SwiperSlide>
+                      )
+                    )}
+                  </Swiper>
+                ) : (
+                  <Text color="white">
+                    No episodes available for this season
+                  </Text>
+                )}
+              </TabPanel>
+            ))}
+          </TabPanels>
+        </Tabs>
+      )}
     </Box>
   );
 };

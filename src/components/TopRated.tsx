@@ -39,6 +39,7 @@ const TopRated = () => {
             .map((mov) => (
               <MovieCard
                 key={mov.id}
+                id={mov.id}
                 title={mov.title}
                 poster_path={mov.poster_path}
                 release_date={mov.release_date}

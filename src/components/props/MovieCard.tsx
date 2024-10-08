@@ -1,8 +1,10 @@
 import { Card, CardBody, Image, CardFooter, Box, Flex, Text, VStack, Heading, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverBody } from "@chakra-ui/react";
 import { LuTv } from "react-icons/lu";
 import { MovieTypes } from "../../types/TVShowTypes";
+import { Link } from "react-router-dom";
 
-const MovieCard = ({ title, poster_path, release_date, vote_average, overview, genres, runtime, section }: MovieTypes) => {
+
+const MovieCard = ({ title, poster_path, release_date, vote_average, overview, genres, runtime, section, id }: MovieTypes) => {
   return (
     <Popover trigger="hover" placement="auto" gutter={10} >
 
@@ -11,13 +13,14 @@ const MovieCard = ({ title, poster_path, release_date, vote_average, overview, g
         <Card padding={0} margin={0} borderRadius={0} width={"12%"} _hover={{ cursor: 'pointer' }} overflow={'visible'}>
           {/* Card Body */}
           <CardBody padding={0} margin={0} overflow={'visible'}>
-            <Image
+           <Link to={`/movie/${id}`}>
+           <Image
               src={`https://image.tmdb.org/t/p/original/${poster_path}`}
               fallbackSrc={`https://image.tmdb.org/t/p/342/${poster_path}`} // Placeholder in case the image doesn't load
               alt={"Movie Image"}
               w="100%"
               h="auto"
-            />
+            /></Link>
           </CardBody>
 
           <CardFooter padding={0} margin={0} bg={section == 'top'?'white':'black'} color={section == 'top'?'black':'white'}>
@@ -25,7 +28,7 @@ const MovieCard = ({ title, poster_path, release_date, vote_average, overview, g
               <Box>
                 <LuTv />
                 <Text color={'red'} noOfLines={1}>{genres[0].name}</Text>
-                <Text color={section == 'top'?'black':'white'} noOfLines={1}>{title}</Text>
+               <Link to={`/movie/${id}`}> <Text color={section == 'top'?'black':'white'} noOfLines={1}>{title}</Text></Link>
               </Box>
               <Text>{release_date.toString().split('-')[0]}</Text>
             </Flex>
@@ -57,7 +60,7 @@ const MovieCard = ({ title, poster_path, release_date, vote_average, overview, g
 
             {/* Watch Now Button */}
             <Box mt={4}>
-              <a href="/Avatar-The-Way-of-Water.html">
+              <Link to={`/movie/${id}`}>
                 <Box
                   as="button"
                   bg="red.400"
@@ -69,7 +72,7 @@ const MovieCard = ({ title, poster_path, release_date, vote_average, overview, g
                 >
                   Watch Now
                 </Box>
-              </a>
+                </Link>
             </Box>
           </VStack>
         </PopoverBody>
