@@ -17,6 +17,7 @@ export interface MovieTypes {
   genres: Array<GenreTypes>;
   runtime: number;
   section: "popular" | "top";
+  backdrop_path:string
 }
 
 export interface TVShowDetails {
