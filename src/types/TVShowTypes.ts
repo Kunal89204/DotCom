@@ -4,20 +4,22 @@ export interface TVShow {
   poster_path: string;
   overview: string;
   number_of_seasons: number;
-  first_air_date: number;
+  first_air_date: string; // Dates should typically be strings
 }
 
 export interface MovieTypes {
+  popularity: number;
+  tagline: string;
   id: number;
   title: string;
   poster_path: string;
-  release_date: number;
+  release_date: string; // Dates should typically be strings
   vote_average: number;
   overview: string;
   genres: Array<GenreTypes>;
   runtime: number;
   section: "popular" | "top";
-  backdrop_path:string
+  backdrop_path: string;
 }
 
 export interface TVShowDetails {
@@ -28,28 +30,44 @@ export interface TVShowDetails {
 }
 
 export interface TVEpisode {
-  air_date: string; // The date the episode aired
-  episode_number: number; // The episode number within the season
-  id: number; // Unique identifier for the episode
-  name: string; // Title of the episode
-  overview: string; // Brief description of the episode
-  still_path: string | null; // Path to the episode's still image (null if not available)
-  vote_average: number; // Average rating of the episode
-  vote_count: number; // Number of votes the episode has received
+  air_date: string; // The date the episode aired (as string)
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  still_path: string | null;
+  vote_average: number;
+  vote_count: number;
 }
+
 export interface TVSeasonDetails {
-  air_date: string; // The date the season aired
-  episodes: TVEpisode[]; // List of episodes in the season
-  id: number; // Unique identifier for the season
-  name: string; // Name of the season
-  overview: string; // Overview of the season
-  poster_path: string | null; // Path to the season's poster image (null if not available)
-  season_number: number; // The season number
-  total_episodes: number; // Total number of episodes in the season
+  air_date: string; // String for consistency with dates
+  episodes: TVEpisode[];
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+  total_episodes: number;
 }
 
 // TVShowTypes.ts
 export interface GenreTypes {
   id: number;
   name: string;
+}
+
+export interface CastTypes {
+  adult: boolean; // true or false (adult content or not)
+  gender: number; // typically 1 (female), 2 (male), or 0 (unknown)
+  id: number;
+  known_for_department: string; // e.g., "Acting"
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null; // path to the cast member's profile image or null
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number; // order of appearance in the credits
 }

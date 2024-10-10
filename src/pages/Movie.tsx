@@ -1,8 +1,17 @@
-import { Box, Spinner, Text, Heading, Image, Flex, keyframes } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Heading,
+  Image,
+  Flex,
+  keyframes,
+  Badge,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import fetchData from "../api/fetchData";
 import { MovieTypes } from "../types/TVShowTypes";
+import Cast from "../components/props/Cast";
 
 // Custom keyframe for spinner animation (optional enhancement)
 const rotateAnimation = keyframes`
@@ -17,8 +26,9 @@ const Movie = () => {
 
   const fetchMovieDetails = async () => {
     try {
-      const response = await fetchData.fetchMovie(Number(movieid));
+      const response: any = await fetchData.fetchMovie(Number(movieid));
       setMovieDetails(response);
+      console.log(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -62,7 +72,8 @@ const Movie = () => {
       ) : (
         <>
           <Box
-            height="100vh"
+            minHeight="100vh"
+            height={"max-content"}
             width="100vw"
             position="relative"
             bgImage={`url(https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path})`}
@@ -83,22 +94,116 @@ const Movie = () => {
 
             {/* Content inside the Box */}
             <Box position="relative" zIndex={1} color="white">
-              <Flex width="100%">
-                <Box width="40%" height="100vh" pt={100}>
+              <Flex
+                direction={{ base: "column", lg: "row" }} // Responsive: column on mobile, row on large screens
+                width="100%"
+                p={{ base: 5, lg: 10 }}
+                gap={10} // Add gap for spacing
+              >
+                {/* Movie Poster */}
+                <Box width={{ base: "100%", lg: "40%" }} textAlign="center">
                   <Image
                     src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
                     m="auto"
-                    width="60%"
+                    width={{ base: "80%", lg: "60%" }}
                     borderRadius={20}
+                    boxShadow="lg" // Add shadow to make the poster pop
                   />
                 </Box>
-                <Box width="60%" p={10}>
-                  <Heading>{movieDetails.title}</Heading>
-                  {/* Add more content about the movie here */}
+
+                {/* Movie Details */}
+                <Box width={{ base: "100%", lg: "60%" }} p={5}>
+                  <Heading
+                    size="3xl"
+                    mb={4}
+                    bgGradient="linear(to-r, red.500, blue.700, purple.500)" // Gradient from red to yellow
+                    bgClip="text" // Makes the gradient apply to the text
+                    fontWeight="extrabold" // Makes the text bold
+                  >
+                    {movieDetails.title}
+                  </Heading>
+
+                  <Text
+                    fontSize="lg"
+                    fontStyle="italic"
+                    color="gray.300"
+                    mb={4}
+                  >
+                    {movieDetails?.tagline}
+                  </Text>
+
+                  {/* Genres */}
+                  <Flex wrap="wrap" gap={2} mb={4}>
+                    {movieDetails?.genres.map((genre) => (
+                      <Badge
+                        key={genre.id}
+                        colorScheme="red"
+                        px={3}
+                        py={1}
+                        borderRadius="md"
+                      >
+                        {genre.name}
+                      </Badge>
+                    ))}
+                  </Flex>
+
+                  {/* Overview */}
+                  <Text fontSize="md" lineHeight="tall" mb={4}>
+                    {movieDetails?.overview}
+                  </Text>
+
+                  {/* Runtime and Release Date */}
+                  <Flex gap={4} mb={4}>
+                    <Box>
+                      <Text fontWeight="bold">Runtime:</Text>
+                      <Text>{movieDetails?.runtime} minutes</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="bold">Release Date:</Text>
+                      <Text>{new Date(movieDetails?.release_date).toLocaleDateString()}</Text>
+                    </Box>
+                  </Flex>
+
+                  {/* Popularity and Vote */}
+                  <Flex gap={4} mb={4}>
+                    <Box>
+                      <Text fontWeight="bold">Popularity:</Text>
+                      <Text>{movieDetails?.popularity}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="bold">Rating:</Text>
+                      <Text>{movieDetails?.vote_average} / 10</Text>
+                    </Box>
+                  </Flex>
+
+                  {/* Watch Now Button */}
+                  <Flex mt={6}>
+                    <Link to={`/movie/play/${movieDetails?.id}`}>
+                      <Box
+                        as="button"
+                        bg="rgba(0,0,0, 0.2)"
+                        border={"1px solid red"}
+                        color="red"
+                        px={8}
+                        py={4}
+                        fontWeight="semibold"
+                        fontSize={"larger"}
+                        transition={"all"}
+                        transitionDuration={"0.35s"}
+                        _hover={{ color: "white", bg: "red" }}
+                        boxShadow="md"
+                      >
+                        Watch Now
+                      </Box>
+                    </Link>
+                  </Flex>
                 </Box>
               </Flex>
             </Box>
           </Box>
+
+          {/* Cast Component */}
+          <Cast movieId={movieDetails?.id} />
         </>
       )}
     </Box>

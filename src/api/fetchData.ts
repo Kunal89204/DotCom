@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 interface fetchData {
     fetchMovie: (movieId: number) => Promise<void>;
     fetchMovieRecommendation: (movieId: number) => Promise<void>;
@@ -11,6 +12,7 @@ interface fetchData {
     fetchTVEpisodeDetails: (tvShowId:number,tvSeasonNo: number, tvEpisodeNo: number) => Promise<any>;
     fetchMovieImages: (movieId: number) => Promise<void>;
     fetchMovieVideos: (movieId: number) => Promise<void>;
+    fetchMovieCredits: (movieId: number) => Promise<void>;
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
@@ -120,6 +122,15 @@ const fetchData: fetchData = {
         try {
             const response = await axiosInstance.get(`/movie/${movieId}/videos`)
             return response.data    
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    },
+    fetchMovieCredits: async (movieId:number) => {
+        try {
+            const response = await axiosInstance.get(`/movie/${movieId}/credits`)
+            return response.data
         } catch (error) {
             console.log(error)
             return error

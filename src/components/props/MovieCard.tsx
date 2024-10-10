@@ -15,8 +15,8 @@ const MovieCard = ({ title, poster_path, release_date, vote_average, overview, g
           <CardBody padding={0} margin={0} overflow={'visible'}>
            <Link to={`/movie/${id}`}>
            <Image
-              src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-              fallbackSrc={`https://image.tmdb.org/t/p/342/${poster_path}`} // Placeholder in case the image doesn't load
+              src={`https://image.tmdb.org/t/p/w342/${poster_path}`}
+              fallbackSrc={`https://image.tmdb.org/t/p/w342/${poster_path}`} // Placeholder in case the image doesn't load
               alt={"Movie Image"}
               w="100%"
               h="auto"

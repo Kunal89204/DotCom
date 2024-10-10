@@ -7,7 +7,7 @@ const ShowCard = ({ name, poster_path, number_of_seasons, first_air_date, overvi
     const [imageSrc, setImageSrc] = useState(`https://image.tmdb.org/t/p/w342${poster_path}`); // Start with low-res
 
     const handleImageLoad = () => {
-        setImageSrc(`https://image.tmdb.org/t/p/original${poster_path}`); // Switch to high-res after low-res loads
+        setImageSrc(`https://image.tmdb.org/t/p/w780${poster_path}`); // Switch to high-res after low-res loads
     };
 
     return (
