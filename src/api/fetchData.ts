@@ -10,8 +10,7 @@ interface fetchData {
     fetchTopRatedMovies: () => Promise<any>;
     fetchTVSeasonDetails: (tvShowId:number,tvSeasonNo: number) => Promise<any>;
     fetchTVEpisodeDetails: (tvShowId:number,tvSeasonNo: number, tvEpisodeNo: number) => Promise<any>;
-    fetchMovieImages: (movieId: number) => Promise<void>;
-    fetchMovieVideos: (movieId: number) => Promise<void>;
+    fetchMovieMedia: (movieId:number, mediaType:'images'|'videos') => Promise<void>;
     fetchMovieCredits: (movieId: number) => Promise<void>;
 }
 
@@ -108,9 +107,9 @@ const fetchData: fetchData = {
         }
     },
 
-    fetchMovieImages: async (movieId:number) => {
+    fetchMovieMedia: async (movieId:number, mediaType:'images'|'videos') => {
         try {
-            const response = await axiosInstance.get(`/movie/${movieId}/images`)
+            const response = await axiosInstance.get(`/movie/${movieId}/${mediaType}`)
             return response.data
         } catch (error) {
             console.log(error)
@@ -118,15 +117,6 @@ const fetchData: fetchData = {
         }
     },
 
-    fetchMovieVideos: async (movieId:number) => {
-        try {
-            const response = await axiosInstance.get(`/movie/${movieId}/videos`)
-            return response.data    
-        } catch (error) {
-            console.log(error)
-            return error
-        }
-    },
     fetchMovieCredits: async (movieId:number) => {
         try {
             const response = await axiosInstance.get(`/movie/${movieId}/credits`)
@@ -137,7 +127,6 @@ const fetchData: fetchData = {
         }
     }
 
-    
 };
 
 export default fetchData;

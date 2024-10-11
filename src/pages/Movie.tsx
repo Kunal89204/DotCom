@@ -12,6 +12,8 @@ import { useParams, Link } from "react-router-dom";
 import fetchData from "../api/fetchData";
 import { MovieTypes } from "../types/TVShowTypes";
 import Cast from "../components/props/Cast";
+import Gallery from "../components/props/Gallery";
+
 
 // Custom keyframe for spinner animation (optional enhancement)
 const rotateAnimation = keyframes`
@@ -28,7 +30,7 @@ const Movie = () => {
     try {
       const response: any = await fetchData.fetchMovie(Number(movieid));
       setMovieDetails(response);
-      console.log(response);
+      
     } catch (error) {
       console.log(error);
     } finally {
@@ -76,7 +78,7 @@ const Movie = () => {
             height={"max-content"}
             width="100vw"
             position="relative"
-            bgImage={`url(https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path})`}
+            bgImage={`url(https://image.tmdb.org/t/p/w780/${movieDetails.backdrop_path})`}
             bgPosition="center"
             bgSize="cover"
             bgRepeat="no-repeat"
@@ -103,7 +105,7 @@ const Movie = () => {
                 {/* Movie Poster */}
                 <Box width={{ base: "100%", lg: "40%" }} textAlign="center">
                   <Image
-                    src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w780/${movieDetails.poster_path}`}
                     m="auto"
                     width={{ base: "80%", lg: "60%" }}
                     borderRadius={20}
@@ -203,7 +205,10 @@ const Movie = () => {
           </Box>
 
           {/* Cast Component */}
-          <Cast movieId={movieDetails?.id} />
+          {/* <Cast movieId={movieDetails?.id} /> */}
+
+          {/* Media gallery */}
+          <Gallery movieId={movieDetails?.id}  />
         </>
       )}
     </Box>
