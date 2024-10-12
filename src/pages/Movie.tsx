@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import fetchData from "../api/fetchData";
 import { MovieTypes } from "../types/TVShowTypes";
-import Cast from "../components/props/Cast";
 import Gallery from "../components/props/Gallery";
 
 

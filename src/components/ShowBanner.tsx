@@ -75,9 +75,9 @@ const ShowBanner = () => {
   return (
     <Box
       width={"100%"}
-      height={"100vh"}
+      height={"85vh"}
       bgImage={`url( https://image.tmdb.org/t/p/original${tvDetails?.backdrop_path})`}
-      backgroundPosition="center"
+      // backgroundPosition="center"
       backgroundSize={"cover"}
       backgroundRepeat="no-repeat"
     >
@@ -96,7 +96,7 @@ const ShowBanner = () => {
       </Text>
 
       {tvDetails && (
-        <Tabs border={"none"} pt={250} variant="enclosed">
+        <Tabs border={"none"} pt={100} variant="enclosed">
           <TabList color={"white"} border={"none"} justifyContent={"center"}>
             {Array.from({ length: tvDetails.number_of_seasons }, (_, index) => (
               <Tab key={index} fontSize={"larger"}>

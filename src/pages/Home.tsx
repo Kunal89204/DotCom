@@ -5,6 +5,10 @@ import PopularShows from '../components/PopularShows'
 import PopularMovies from '../components/PopularMovies'
 import TopRated from '../components/TopRated'
 import ShowBanner from '../components/ShowBanner'
+import Trending from '../components/Trending'
+import MovieBanner from '../components/MovieBanner'
+
+
 
 
 
@@ -18,7 +22,12 @@ const Home: React.FC = () => {
       <PopularMovies />
       <TopRated />
       <ShowBanner />
-    </div>
+      <Trending showType='movie'  />
+    
+      <MovieBanner />
+      <Trending showType='tv'  />
+      
+    </div> 
   )
 }
 

@@ -8,8 +8,9 @@ export interface TVShow {
 }
 
 export interface MovieTypes {
-  popularity: number;
-  tagline: string;
+  popularity?: number;
+  showType?: 'movie'|'tv';
+  tagline?: string;
   id: number;
   title: string;
   poster_path: string;
@@ -19,7 +20,8 @@ export interface MovieTypes {
   genres: Array<GenreTypes>;
   runtime: number;
   section: "popular" | "top";
-  backdrop_path: string;
+  backdrop_path?: string;
+  name?:'string'
 }
 
 export interface TVShowDetails {

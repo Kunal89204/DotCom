@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import fetchData from "../api/fetchData";
 import { MovieTypes } from "../types/TVShowTypes";
-import { Box, Flex, Text, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import MovieCard from "./props/MovieCard";
 
 const TopRated = () => {
