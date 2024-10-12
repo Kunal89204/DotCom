@@ -29,6 +29,7 @@ export interface TVShowDetails {
   name: string;
   number_of_seasons: number;
   backdrop_path: string;
+  poster_path: string;
 }
 
 export interface TVEpisode {

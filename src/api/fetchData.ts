@@ -8,6 +8,7 @@ interface fetchData {
     fetchPopularTVShows:() => Promise<any>;
     fetchTVShowDetails: (tvShowId: number) => Promise<any>;
     fetchTopRatedMovies: () => Promise<any>;
+    fetchTopRatedShows: () => Promise<any>;
     fetchTVSeasonDetails: (tvShowId:number,tvSeasonNo: number) => Promise<any>;
     fetchTVEpisodeDetails: (tvShowId:number,tvSeasonNo: number, tvEpisodeNo: number) => Promise<any>;
     fetchMovieMedia: (movieId:number, mediaType:'images'|'videos') => Promise<void>;
@@ -71,6 +72,15 @@ const fetchData: fetchData = {
     fetchTopRatedMovies: async () => {
         try {
             const response = await axiosInstance.get('/movie/top_rated') 
+            return response.data 
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    },
+    fetchTopRatedShows: async () => {
+        try {
+            const response = await axiosInstance.get('/tv/top_rated') 
             return response.data 
         } catch (error) {
             console.log(error)

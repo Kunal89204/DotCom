@@ -28,7 +28,6 @@ const Trending: React.FC<showType> = ({showType}) => {
     try {
       const response = await fetchData.fetchTrendingMovie(timeWindow, showType);
       setTrendingMovies(response.results);
-      console.log(response.results);
     } catch (error) {
       console.log(error);
       return error;

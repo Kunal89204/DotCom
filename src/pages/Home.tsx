@@ -7,6 +7,8 @@ import TopRated from '../components/TopRated'
 import ShowBanner from '../components/ShowBanner'
 import Trending from '../components/Trending'
 import MovieBanner from '../components/MovieBanner'
+import TopRatedShows from '../components/TopRatedShows'
+
 
 
 
@@ -23,9 +25,9 @@ const Home: React.FC = () => {
       <TopRated />
       <ShowBanner />
       <Trending showType='movie'  />
-    
       <MovieBanner />
       <Trending showType='tv'  />
+      <TopRatedShows />
       
     </div> 
   )
