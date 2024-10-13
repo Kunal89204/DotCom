@@ -101,6 +101,7 @@ const fetchData: fetchData = {
     fetchTVSeasonDetails: async (tvShowId:number,tvSeasonNo: number) => {
         try {
             const response = await axiosInstance.get(`/tv/${tvShowId}/season/${tvSeasonNo}`)
+            console.log(response.data)
             return response.data
         } catch (error) {
             console.log(error)

@@ -50,9 +50,13 @@ export interface TVShowDetails {
 
 // Example Episode type (ensure this matches your API response)
 export interface Episode {
+  still_path: string;
+  episode_number: number;
+  overview: string;
+  runtime: number;
   id: number;
   name: string;
-  // Add other properties as needed
+ 
 }
 
 
