@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Box, Text, Button, VStack, Flex } from "@chakra-ui/react";
 import { MovieTypes } from "../types/TVShowTypes";
 import fetchData from "../api/fetchData";
+import { Link } from "react-router-dom";
+
 
 const MovieBanner: React.FC = () => {
   const [movieDetails, setMovieDetails] = useState<MovieTypes | null>(null);
@@ -41,6 +43,7 @@ const MovieBanner: React.FC = () => {
         <Text fontSize="md">{movieDetails.overview}</Text>
         <Text fontWeight="bold">Release Date: {movieDetails.release_date}</Text>
         <Text fontWeight="bold">Rating: {movieDetails.vote_average} ⭐</Text>
+        <Link to={`/movie/${movieDetails.id}`}>
         <Button
           colorScheme="red"
           size="lg"
@@ -50,6 +53,7 @@ const MovieBanner: React.FC = () => {
         >
           Watch Now
         </Button>
+        </Link>
       </VStack>
     </Flex>
   );

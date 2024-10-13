@@ -13,7 +13,6 @@ import fetchData from "../api/fetchData";
 import { MovieTypes } from "../types/TVShowTypes";
 import Gallery from "../components/props/Gallery";
 
-
 // Custom keyframe for spinner animation (optional enhancement)
 const rotateAnimation = keyframes`
   0% { transform: rotate(0deg); }
@@ -29,7 +28,6 @@ const Movie = () => {
     try {
       const response: any = await fetchData.fetchMovie(Number(movieid));
       setMovieDetails(response);
-      
     } catch (error) {
       console.log(error);
     } finally {
@@ -116,7 +114,7 @@ const Movie = () => {
                 <Box width={{ base: "100%", lg: "60%" }} p={5}>
                   <Heading
                     size="3xl"
-                    mb={4}
+                    py={4}
                     bgGradient="linear(to-r, red.500, blue.700, purple.500)" // Gradient from red to yellow
                     bgClip="text" // Makes the gradient apply to the text
                     fontWeight="extrabold" // Makes the text bold
@@ -161,7 +159,11 @@ const Movie = () => {
                     </Box>
                     <Box>
                       <Text fontWeight="bold">Release Date:</Text>
-                      <Text>{new Date(movieDetails?.release_date).toLocaleDateString()}</Text>
+                      <Text>
+                        {new Date(
+                          movieDetails?.release_date
+                        ).toLocaleDateString()}
+                      </Text>
                     </Box>
                   </Flex>
 
@@ -207,7 +209,7 @@ const Movie = () => {
           {/* <Cast movieId={movieDetails?.id} /> */}
 
           {/* Media gallery */}
-          <Gallery movieId={movieDetails?.id}  />
+          <Gallery movieId={movieDetails?.id} />
         </>
       )}
     </Box>

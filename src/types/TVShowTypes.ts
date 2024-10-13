@@ -27,9 +27,23 @@ export interface MovieTypes {
 export interface TVShowDetails {
   id?: number;
   name: string;
-  number_of_seasons: number;
-  backdrop_path: string;
-  poster_path: string;
+  number_of_seasons: number;  // Number of seasons for the TV show
+  number_of_episodes: number; // Total number of episodes
+  backdrop_path: string;      // Backdrop image path
+  poster_path: string;        // Poster image path
+  tagline?: string;           // Optional tagline
+  genres: Array<GenreTypes>;  // Array of genre objects
+  overview: string;           // Show overview/description
+  runtime?: number;           // Optional runtime per episode
+  first_air_date: string;     // First air date of the show
+  last_air_date?: string;     // Optional field for the last air date
+  in_production?: boolean;    // Optional: whether the show is still in production
+  popularity?: number;        // Optional popularity score
+  vote_average?: number;      // Optional average user rating
+  vote_count?: number;        // Optional total number of votes
+  homepage?: string;          // Optional homepage URL
+  status?: string; 
+  episode_run_time: number[]           // Current status of the show (e.g., "Returning Series")
 }
 
 export interface TVEpisode {
