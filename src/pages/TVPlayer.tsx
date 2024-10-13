@@ -11,9 +11,12 @@ import {
   TabPanel,
   Text,
   Image,
+  Flex
 } from "@chakra-ui/react"; // Chakra UI for styling
 import { TVShowDetails, Episode } from "../types/TVShowTypes";
 import fetchData from "../api/fetchData";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const TVPlayer = () => {
   const { tvid, sno, epno } = useParams();
@@ -22,8 +25,7 @@ const TVPlayer = () => {
   const [error, setError] = useState(false);
   const [seasonNumber, setSeasonNumber] = useState<number>(2);
   const [seasonInfo, setSeasonInfo] = useState<TVShowDetails | null>(null);
-
-
+ 
 
   const fetchTVShowDetails = async () => {
     try {
@@ -96,7 +98,7 @@ const TVPlayer = () => {
         {!error && (
           <iframe
             src={videoUrl}
-            className="rounded-xl"
+            className="rounded-xl "
             style={{ width: "80%", height: "80%" }}
             frameBorder="0"
             referrerPolicy="origin"
@@ -106,29 +108,80 @@ const TVPlayer = () => {
           ></iframe>
         )}
       </div>
-      <Box>
+      <Box className="bg-black text-white">
         <Tabs>
-          <TabList>
-            {showData?.seasons.map((season, i) => (
-              <Tab
-                key={i}
-                onClick={() => setSeasonNumber(season.season_number)}
-              >
-                Season {season.season_number}
-              </Tab>
-            ))}
+          <TabList borderBottom={0}>
+            {showData?.seasons
+              .filter((season) => season.season_number !== 0) // Filter out season 0
+              .map((season, i) => (
+                <Tab
+                  key={i}
+                  onClick={() => setSeasonNumber(season.season_number)}
+                  border={'1px solid'}
+                  m={2}
+                  borderRadius={20}
+                  
+                  
+                >
+                  Season {season.season_number}
+                </Tab>
+              ))}
           </TabList>
 
           <TabPanels>
             {showData?.seasons.map((_, i) => (
               <TabPanel key={i} display={"flex"} gap={"10px"}>
-                {seasonInfo?.episodes.map((ep: Episode, index: number) => (
-                  <Box key={index}>
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w342${ep.still_path}`}
-                    />
-                  </Box>
-                ))}
+                <Swiper
+                  spaceBetween={10}
+                  slidesPerView={5} // Adjust this based on the screen size
+                >
+                  {seasonInfo?.episodes.map((ep: Episode, index: number) => (
+  <SwiperSlide key={index}>
+    <Box position="relative" overflow="hidden" borderRadius="md" boxShadow="md" _hover={{ transform: "scale(1.05)", transition: "0.3s" }}>
+      <Image
+        src={`https://image.tmdb.org/t/p/w342${ep.still_path}`}
+        alt={`Episode ${ep.episode_number}`}
+        borderRadius={10}
+        objectFit="cover"
+        width="100%"
+        height="auto"
+      />
+
+      {/* Episode Number Badge */}
+      <Box
+        position="absolute"
+        top={2}
+        left={2}
+        bg="purple.600"
+        color="white"
+        fontSize="xs"
+        px={2}
+        py={1}
+        borderRadius="full"
+        boxShadow="sm"
+      >
+        Ep {ep.episode_number}
+      </Box>
+    </Box>
+
+    {/* Episode Details */}
+    <Flex justifyContent="space-between" alignItems="center" mt={2} color="gray.300" px={2}>
+      <Box>
+        <Text fontSize="md" fontWeight="bold" color="white" noOfLines={1}>
+          {ep.name}
+        </Text>
+        <Text fontSize="sm" color="gray.400" noOfLines={2}>
+          {ep.overview ? ep.overview.substring(0, 50) + '...' : 'No description available'}
+        </Text>
+      </Box>
+      <Text fontSize="sm" color="gray.500">
+        {ep.runtime} min
+      </Text>
+    </Flex>
+  </SwiperSlide>
+))}
+
+                </Swiper>
               </TabPanel>
             ))}
           </TabPanels>
