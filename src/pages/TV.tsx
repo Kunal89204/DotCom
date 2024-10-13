@@ -27,6 +27,7 @@ const TV = () => {
     try {
       const response = await fetchData.fetchTVShowDetails(Number(tvid));
       setTvDetails(response);
+      console.log(response)
     } catch (error) {
       console.log(error);
     } finally {
@@ -174,7 +175,7 @@ const TV = () => {
 
                   {/* Watch Now Button */}
                   <Flex mt={6}>
-                    <Link to={`/movie/play/${tvDetails.id}`}>
+                    <Link to={`/tvplayer/${tvDetails.id}/season/1/episode/1`}>
                       <Box
                         as="button"
                         bg="rgba(0,0,0, 0.2)"

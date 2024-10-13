@@ -127,7 +127,7 @@ const ShowBanner = () => {
                     {season.episodes.map(
                       (episode: any, episodeIndex: number) => (
                         <SwiperSlide key={episodeIndex}>
-                          <Link to={``}>
+                          <Link to={`/tvplayer/${tvDetails?.id}/season/${episode.season_number}/episode/${episode.episode_number}`}>
                             <Box
                               borderRadius="md"
                               overflow="visible" // Change overflow to visible

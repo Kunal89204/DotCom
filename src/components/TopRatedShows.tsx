@@ -57,7 +57,7 @@ const TopRatedShows: React.FC = () => {
         {topRatedShows &&
           topRatedShows.slice(0, 10).map((show, i) => (
             <Box p={0} width={"15%"}>
-              <Link to={`/tvshow/${show.id}`}>
+              <Link to={`/tv/${show.id}`}>
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${show?.backdrop_path}`}
                   alt={show.name}

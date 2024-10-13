@@ -25,6 +25,7 @@ export interface MovieTypes {
 }
 
 export interface TVShowDetails {
+  seasons: any;
   id?: number;
   name: string;
   number_of_seasons: number;  // Number of seasons for the TV show
@@ -43,8 +44,17 @@ export interface TVShowDetails {
   vote_count?: number;        // Optional total number of votes
   homepage?: string;          // Optional homepage URL
   status?: string; 
-  episode_run_time: number[]           // Current status of the show (e.g., "Returning Series")
+  episode_run_time: number[];
+  episodes: any          // Current status of the show (e.g., "Returning Series")
 }
+
+// Example Episode type (ensure this matches your API response)
+export interface Episode {
+  id: number;
+  name: string;
+  // Add other properties as needed
+}
+
 
 export interface TVEpisode {
   air_date: string; // The date the episode aired (as string)

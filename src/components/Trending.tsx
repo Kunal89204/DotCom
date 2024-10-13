@@ -61,7 +61,7 @@ const Trending: React.FC<showType> = ({showType}) => {
     <Swiper spaceBetween={20} slidesPerView={6}>
       {trendingMovies.map((movie) => (
         <SwiperSlide key={movie.id}>
-          <Link to={`/movie/${movie.id}`}>
+          <Link to={showType === 'movie'?`/movie/${movie.id}`:`/tv/${movie.id}`}>
           <Box overflow="hidden" boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" borderRadius={'10px'} _hover={{borderRadius:'0px'}} transitionDuration={'0.35s'}>
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
