@@ -1,184 +1,91 @@
-import React, { useEffect, useState } from "react";
-import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Box,
-  Text,
-  Image,
-  VStack,
-  Tooltip,
-} from "@chakra-ui/react";
-import fetchData from "../../api/fetchData";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import { Box, Heading, Text, AspectRatio, Image } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+
+// Import the API key from your configuration
+import { apiKey } from '../../api/fetchData';
 
 interface GalleryProps {
   movieId: number;
+  showType: 'movie' | 'tv'; 
 }
 
-const Gallery: React.FC<GalleryProps> = ({ movieId }) => {
-  const [gallery, setGallery] = useState<any>(null);
-  const [videos, setVideos] = useState<any>(null);
-  const [cast, setCast] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+const Gallery: React.FC<GalleryProps> = ({ movieId, showType }) => {
+  const [images, setImages] = useState<string[]>([]);
+  const [trailer, setTrailer] = useState<string | null>(null);
 
-  //   Fallback url
-  const fallbackImage: string =
-    "https://thumbs.dreamstime.com/b/generic-person-gray-photo-placeholder-man-silhouette-white-background-144511705.jpg";
-
-  // Fetch all the data with Promise.all
-  const fetchDataAll = async () => {
+  const fetchMedia = async () => {
     try {
-      const [imagesResponse, videosResponse, creditsResponse]: [any, any, any] =
-        await Promise.all([
-          fetchData.fetchMovieMedia(movieId, "images"),
-          fetchData.fetchMovieMedia(movieId, "videos"),
-          fetchData.fetchMovieCredits(movieId),
-        ]);
-      setGallery(imagesResponse);
-      setVideos(videosResponse.results);
-      setCast(creditsResponse.cast);
+      // Fetching images and trailer
+      const imageResponse = await axios.get(
+        `https://api.themoviedb.org/3/${showType}/${movieId}/images?api_key=${apiKey}`
+      );
+      const videoResponse = await axios.get(
+        `https://api.themoviedb.org/3/${showType}/${movieId}/videos?api_key=${apiKey}`
+      );
+
+      setImages(imageResponse.data.backdrops.map((img: any) => img.file_path));
+
+      const trailerData = videoResponse.data.results.find(
+        (video: any) => video.type === 'Trailer' && video.site === 'YouTube'
+      );
+      setTrailer(trailerData ? `https://www.youtube.com/embed/${trailerData.key}` : null);
     } catch (error) {
-      console.error(error);
-      setError("Failed to fetch movie data. Please try again later.");
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchDataAll();
+    fetchMedia();
   }, [movieId]);
 
-  if (error) {
-    return <Text color="red.500">{error}</Text>;
-  }
-
   return (
-    <Box
-      bg="black"
-      color="white"
-      p={5}
-      border="1px solid"
-      borderColor="gray.900"
-    >
-      <Tabs variant="solid-rounded" colorScheme="red">
-        <TabList>
-          <Tab>Images</Tab>
-          <Tab>Videos</Tab>
-          <Tab>Cast</Tab>
-        </TabList>
+    <Box bg={'black'} color={'white'} py={8} px={4}>
+      <Heading as="h2" size="xl" mb={6} color="red.500" >
+        Gallery
+      </Heading>
 
-        <TabPanels>
-          {/* Images Tab */}
-          <TabPanel>
-            {gallery && gallery.backdrops && gallery.backdrops.length > 0 ? (
-              <VStack spacing={4}>
-                {gallery.backdrops.map((image: any, index: number) => (
-                  <Image
-                    key={index}
-                    src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
-                    alt={`Movie Image ${index}`}
-                    borderRadius="md"
-                    border="1px solid"
-                    borderColor="gray.900"
-                  />
-                ))}
-              </VStack>
-            ) : (
-              <Text color="gray.500">No images available.</Text>
-            )}
-          </TabPanel>
+      <Swiper spaceBetween={10} slidesPerView={5}>
+        {/* First Slide: Trailer (if available) */}
+        {trailer && (
+          <SwiperSlide>
+            <AspectRatio ratio={16 / 9}>
+              <iframe
+                src={trailer}
+                title="Movie Trailer"
+                allowFullScreen
+                style={{ borderRadius: '10px' }}
+              />
+            </AspectRatio>
+            <Text mt={2} color="gray.300" textAlign="center">
+              Official Trailer
+            </Text>
+          </SwiperSlide>
+        )}
 
-          {/* Videos Tab */}
-          <TabPanel>
-            {videos && videos.length > 0 ? (
-              <Box>
-                <Swiper spaceBetween={5} slidesPerView={4}>
-                  {videos.map((video: any, index: number) => (
-                    <SwiperSlide key={index}>
-                      <Box>
-                        <iframe
-                          width={"100%"}
-                          className="aspect-video rounded-xl"
-                          src={`https://www.youtube.com/embed/${video.key}`}
-                          title={video.name}
-                          frameBorder="0"
-                          allowFullScreen
-                        ></iframe>
-                        <Text color="red.500">{video.name}</Text>
-                      </Box>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </Box>
-            ) : (
-              <Text color="gray.500">No videos available.</Text>
-            )}
-          </TabPanel>
+        {/* Other Slides: Images */}
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <Image
+              src={`https://image.tmdb.org/t/p/original${image}`}
+              alt={`Movie Image ${index + 1}`}
+              borderRadius="10px"
+              objectFit="cover"
+              width="100%"
+              height="auto"
+            />
+          </SwiperSlide>
+        ))}
 
-          {/* Cast Tab */}
-          <TabPanel>
-            {cast && cast.length > 0 ? (
-              <Swiper spaceBetween={20} slidesPerView={8}>
-                {cast.map((member: any, index: number) => (
-                  <SwiperSlide key={index}>
-                    <Box
-                      p={3}
-                      border="1px solid"
-                      borderColor="gray.900"
-                      borderRadius="md"
-                      textAlign="center"
-                      display={"flex"}
-                      flexDirection={"column"}
-                      alignItems={"center"}
-                      maxWidth="150px" // Limit max width for better alignment
-                    >
-                      <Tooltip
-                        label={member.name}
-                        aria-label="Cast Name"
-                        placement="top"
-                      >
-                        <Image
-                          src={
-                            member.profile_path
-                              ? `https://image.tmdb.org/t/p/w342/${member.profile_path}`
-                              : fallbackImage
-                          }
-                          alt={member.name} // Correct alt attribute to use member's name
-                          objectFit="cover"
-                          borderRadius="full"
-                          height="100px"
-                          width="100px"
-                          fallbackSrc={fallbackImage}
-                        />
-                      </Tooltip>
-                      <Text
-                        fontWeight="bold"
-                        color="red.500"
-                        noOfLines={1} // Truncate long names
-                        fontSize="sm" // Adjust font size for better fit
-                      >
-                        {member.name}
-                      </Text>
-                      <Text
-                        color="gray.500"
-                        noOfLines={1} // Truncate long character names
-                        fontSize="sm" // Adjust font size for better fit
-                      >
-                        as {member.character}
-                      </Text>
-                    </Box>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            ) : (
-              <Text color="gray.500">No cast information available.</Text>
-            )}
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+        {/* If no images or trailer */}
+        {(!trailer && images.length === 0) && (
+          <Text color="gray.500" textAlign="center" mt={4}>
+            No media available.
+          </Text>
+        )}
+      </Swiper>
     </Box>
   );
 };

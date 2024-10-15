@@ -13,15 +13,16 @@ import 'swiper/swiper-bundle.css'; // Import Swiper styles
 
 interface IdType {
   movieId: number;
+  showType: 'movie'|'tv'; 
 }
 
-const Cast: React.FC<IdType> = ({ movieId }) => {
+const Cast: React.FC<IdType> = ({ movieId, showType }) => {
   const [movieCast, setMovieCast] = useState<CastTypes[] | null>(null);
   const [loading, setLoading] = useState(true); // Loading state
 
   const fetchMovieCast = async () => {
     try {
-      const response: any = await fetchData.fetchMovieCredits(movieId);
+      const response: any = await fetchData.fetchMovieCredits(movieId, showType);
       setMovieCast(response.cast);
       setLoading(false);
     } catch (error) {
@@ -61,7 +62,7 @@ const Cast: React.FC<IdType> = ({ movieId }) => {
               slidesPerView: 3,
             },
             1024: {
-              slidesPerView: 5,
+              slidesPerView: 10,
             },
           }}
         >

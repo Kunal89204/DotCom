@@ -3,7 +3,7 @@ import axios from 'axios';
 
 interface fetchData {
     fetchMovie: (movieId: number) => Promise<void>;
-    fetchMovieRecommendation: (movieId: number) => Promise<void>;
+    fetchMovieRecommendation: (movieId: number, showType:'movie'|'tv') => Promise<void>;
     fetchPopularMovies: () => Promise<any>;
     fetchPopularTVShows:() => Promise<any>;
     fetchTVShowDetails: (tvShowId: number) => Promise<any>;
@@ -12,12 +12,13 @@ interface fetchData {
     fetchTVSeasonDetails: (tvShowId:number,tvSeasonNo: number) => Promise<any>;
     fetchTVEpisodeDetails: (tvShowId:number,tvSeasonNo: number, tvEpisodeNo: number) => Promise<any>;
     fetchMovieMedia: (movieId:number, mediaType:'images'|'videos') => Promise<void>;
-    fetchMovieCredits: (movieId: number) => Promise<void>;
+    fetchMovieCredits: (movieId: number, showType:'movie'|'tv') => Promise<void>;
     fetchTrendingMovie: (timeWindow:string, showType:'movie'|'tv') => Promise<any>;
+    fetchMediaImages: () => Promise<any>
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
-const apiKey: string = '0d44b6cdd7b6567c07cb6c7cc6635ec0';
+export const apiKey: string = '0d44b6cdd7b6567c07cb6c7cc6635ec0';
 
 // Create an axios instance with default configuration
 const axiosInstance = axios.create({
@@ -39,9 +40,9 @@ const fetchData: fetchData = {
         }
     },
 
-    fetchMovieRecommendation: async (movieId: number) => {
+    fetchMovieRecommendation: async (movieId: number, showType:'movie'|'tv') => {
         try {
-            const response = await axiosInstance.get(`/movie/${movieId}/recommendations`)
+            const response = await axiosInstance.get(`/${showType}/${movieId}/recommendations`)
             return response.data
         } catch (error) {
             console.log(error)
@@ -101,7 +102,6 @@ const fetchData: fetchData = {
     fetchTVSeasonDetails: async (tvShowId:number,tvSeasonNo: number) => {
         try {
             const response = await axiosInstance.get(`/tv/${tvShowId}/season/${tvSeasonNo}`)
-            console.log(response.data)
             return response.data
         } catch (error) {
             console.log(error)
@@ -129,9 +129,9 @@ const fetchData: fetchData = {
         }
     },
 
-    fetchMovieCredits: async (movieId:number) => {
+    fetchMovieCredits: async (movieId:number, showType:'movie'|'tv') => {
         try {
-            const response = await axiosInstance.get(`/movie/${movieId}/credits`)
+            const response = await axiosInstance.get(`/${showType}/${movieId}/credits`)
             return response.data
         } catch (error) {
             console.log(error)
@@ -143,6 +143,16 @@ const fetchData: fetchData = {
         try {
             const response = await axiosInstance.get(`/trending/${showType}/${timeWindow}`)
             return response.data
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    },
+
+    fetchMediaImages: async () => {
+        try {
+            const response = await axiosInstance.get(`/movie/19995/images`)
+            console.log(response.data)
         } catch (error) {
             console.log(error)
             return error

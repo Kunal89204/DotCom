@@ -12,6 +12,10 @@ import { useParams, Link } from "react-router-dom";
 import fetchData from "../api/fetchData";
 import { MovieTypes } from "../types/TVShowTypes";
 import Gallery from "../components/props/Gallery";
+import Recommended from "../components/Recommended";
+import Cast from "../components/props/Cast";
+
+
 
 // Custom keyframe for spinner animation (optional enhancement)
 const rotateAnimation = keyframes`
@@ -207,9 +211,10 @@ const Movie = () => {
 
           {/* Cast Component */}
           {/* <Cast movieId={movieDetails?.id} /> */}
-
+<Cast movieId={movieDetails?.id} showType="movie"/>
           {/* Media gallery */}
-          <Gallery movieId={movieDetails?.id} />
+          <Gallery movieId={movieDetails?.id} showType="movie" />
+          <Recommended movieId={movieDetails?.id} showType="movie" />
         </>
       )}
     </Box>

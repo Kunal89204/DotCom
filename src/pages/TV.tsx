@@ -11,6 +11,12 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import fetchData from "../api/fetchData";
 import { TVShowDetails } from "../types/TVShowTypes";
+import Cast from "../components/props/Cast";
+import Gallery from "../components/props/Gallery";
+import Recommended from "../components/Recommended";
+
+
+
 
 // Keyframe for optional animation
 const rotateAnimation = keyframes`
@@ -40,6 +46,7 @@ const TV = () => {
   }, [tvid]);
 
   return (
+    <>
     <Box p={0}>
       {loading ? (
         // Pre-loader spinner animation
@@ -201,6 +208,10 @@ const TV = () => {
         </>
       )}
     </Box>
+    <Cast movieId={Number(tvDetails?.id)} showType="tv" />
+    <Gallery movieId={Number(tvDetails?.id)} showType="tv" />
+    <Recommended movieId={Number(tvDetails?.id)} showType="tv" />
+    </>
   );
 };
 
