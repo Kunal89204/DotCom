@@ -14,10 +14,10 @@ const PopularShows: React.FC = () => {
   // Fetch the popular TV shows from API
   const fetchPopularTVShows = async () => {
     try {
-      const response = await fetchData.fetchPopularTVShows();
+      const response = await fetchData.fetchPopularTVShows(1);
 
       // Fetch details for each show
-      const showDetailsPromises = response.map(async (el: TVShow | any) => {
+      const showDetailsPromises = response.results.map(async (el: TVShow | any) => {
         const details = await fetchData.fetchTVShowDetails(el.id);
         return details;
       });

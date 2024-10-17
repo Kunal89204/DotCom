@@ -1,11 +1,9 @@
 import { Box, Heading, Text, Flex, Button } from "@chakra-ui/react";
 import MovieCard from "./props/MovieCard"; // Importing the genre list
-
 import { useEffect, useState } from "react";
 import { MovieTypes } from "../types/TVShowTypes";
 import fetchData from "../api/fetchData";
-
-
+import { Link } from "react-router-dom";
 
 const PopularMovies = () => {
   // Defining the states
@@ -14,8 +12,8 @@ const PopularMovies = () => {
   // Function to fetch movies data
   const fetchPopularMovies = async () => {
     try {
-      const response = await fetchData.fetchPopularMovies();
-      const movieDetailsPromises = response.map(async (el:MovieTypes|any) => {
+      const response = await fetchData.fetchPopularMovies(20);
+      const movieDetailsPromises = response.results.map(async (el:MovieTypes|any) => {
         const details = await fetchData.fetchMovie(el.id)
         return details
       })
@@ -59,6 +57,7 @@ const PopularMovies = () => {
       </Flex>
 
       <Box py={20} textAlign={"center"} width={"100%"}>
+        <Link to={'/movies/popular'}>
         <Button
           bg={"red"}
           border={"1px"}
@@ -76,7 +75,7 @@ const PopularMovies = () => {
           }}
         >
           Browse All Movies
-        </Button>
+        </Button></Link>
       </Box>
     </Box>
   );

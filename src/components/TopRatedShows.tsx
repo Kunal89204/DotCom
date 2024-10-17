@@ -9,8 +9,8 @@ const TopRatedShows: React.FC = () => {
   const [bgUrl, setBgUrl] = useState("");
   const fetchTopRatedShows = async () => {
     try {
-      const response = await fetchData.fetchPopularTVShows();
-      setTopRatedShows(response);
+      const response = await fetchData.fetchTopRatedShows();
+      setTopRatedShows(response.results);
     } catch (error) {
       console.log(error);
       return error;
