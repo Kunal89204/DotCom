@@ -8,6 +8,7 @@ const MoviePlayer = () => {
   return (
     <div>
      <Player videoId={movieid} />
+     hello world
     </div>
   )
 }

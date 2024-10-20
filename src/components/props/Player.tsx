@@ -1,52 +1,75 @@
 import React, { useState, useEffect } from 'react';
 
-interface IdType {
-    videoId: string | number | any; // videoId should now be the YouTube video ID
+interface PlayerProps {
+  videoId: string; // Expecting a valid YouTube video ID
 }
 
-const Player: React.FC<IdType> = ({ videoId }) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+const Player: React.FC<PlayerProps> = ({ videoId }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        // Reset loading and error states when videoId changes
-        setLoading(true);
-        setError(null);
-    }, [videoId]);
 
-    const handleIframeLoad = () => {
-        setLoading(false);
-    };
 
-    const handleError = () => {
-        setLoading(false);
-        setError('Failed to load video. Please try again later.');
-    };
+  useEffect(() => {
+    // Reset loading and error states when videoId changes
+    setLoading(true);
+    setError(null);
+  }, [videoId]);
 
-    return (
-        <div className="relative w-full h-0" style={{ paddingTop: '56.25%' }}> {/* Aspect ratio 16:9 */}
-            {loading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-                    <div className="loader">Loading...</div> {/* Replace with a spinner or animated loader */}
-                </div>
-            )}
-            {error && (
-                <div className="absolute inset-0 flex items-center justify-center bg-red-600 text-white">
-                    {error}
-                </div>
-            )}
-            <iframe
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`}
-                title={`YouTube Trailer Player for ${videoId}`}
-                className="absolute inset-0 w-full h-full"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                onLoad={handleIframeLoad}
-                onError={handleError}
-            />
+  const handleIframeLoad = () => {
+    setLoading(false);
+  };
+
+  const handleError = () => {
+    setLoading(false);
+    setError('Failed to load video. Please try again later.');
+  };
+
+  return (
+    <div className="relative w-full h-0" style={{ paddingTop: '56.25%' }}> {/* Aspect ratio 16:9 */}
+      {loading && !error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="loader">Loading...</div> {/* Add custom loader component or CSS spinner */}
         </div>
-    );
+      )}
+      {error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-red-600 text-white">
+          <p>{error}</p>
+          <button
+            onClick={() => {
+              setLoading(true);
+              setError(null);
+            }}
+            className="mt-4 px-4 py-2 bg-white text-red-600 rounded"
+          >
+            Retry
+          </button>
+        </div>
+      )}
+      {!error && (
+        <iframe
+          title="Video Player"
+          src={videoId ? videoUrl : ''}
+          className="rounded-xl"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: '10%',
+            right: '10%',
+            bottom: 0,
+            width: '80%',
+            height: '100%',
+            boxShadow: '0 4px 8px rgba(255, 255, 255, 0.4)', // Adjusted for cleaner shadows
+          }}
+          frameBorder="0"
+          referrerPolicy="origin"
+          allowFullScreen
+          onLoad={handleIframeLoad}
+          onError={handleError}
+        ></iframe>
+      )}
+    </div>
+  );
 };
 
 export default Player;

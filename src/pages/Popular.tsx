@@ -80,11 +80,11 @@ const Popular: React.FC<MediaType> = ({ media }) => {
 
   return (
     <Box bg={"black"}>
-      <Heading as={"h1"} color={"red"} fontSize={"xxx-large"} py={10}>
+      <Heading as={"h1"} className="bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-orange-700 " fontSize={"xxx-large"} p={10}>
         WatchPopular {media === 'movie'?'Movies':'TV Shows'}
       </Heading>
 
-      <Flex wrap="wrap" gap={8} justify="center" px={10} width={"100vw"}>
+      <Flex wrap="wrap" gap={8} justify="center" px={10} width={"100vw"} minH={'100vh'}>
         {popular.length > 0 ? (
           popular.map((mov, i) =>
             media === "movie" ? (
@@ -118,7 +118,7 @@ const Popular: React.FC<MediaType> = ({ media }) => {
 
         {loading && (
           <Box textAlign="center" mt={4}>
-            <Spinner size="lg" />
+            <Spinner size="xl" color="white" />
           </Box>
         )}
       </Flex>
