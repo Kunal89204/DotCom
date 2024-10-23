@@ -17,6 +17,7 @@ import { TVShowDetails, Episode } from "../types/TVShowTypes";
 import fetchData from "../api/fetchData";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Recommended from "../components/Recommended";
 
 
 const TVPlayer = () => {
@@ -26,7 +27,6 @@ const TVPlayer = () => {
   const [error, setError] = useState(false);
   const [seasonNumber, setSeasonNumber] = useState<number>(1);
   const [seasonInfo, setSeasonInfo] = useState<TVShowDetails | null>(null);
-
 
 
   const fetchTVShowDetails = async () => {
@@ -241,6 +241,7 @@ const TVPlayer = () => {
           </TabPanels>
         </Tabs>
       </Box>
+      <Recommended movieId={tvid} showType="tv"/>
     </>
   );
 };

@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom"
 import Player from "../components/props/Player"
+import Recommended from "../components/Recommended"
+
 
 
 
@@ -8,7 +10,7 @@ const MoviePlayer = () => {
   return (
     <div>
      <Player videoId={movieid} />
-     hello world
+     <Recommended movieId={movieid} showType="movie" />
     </div>
   )
 }

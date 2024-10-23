@@ -19,7 +19,7 @@ interface Movie {
   first_air_date: string;
 }
 
-const Recommended: React.FC<{ movieId: number; showType: "movie" | "tv" }> = ({
+const Recommended: React.FC<{ movieId: number|any; showType: "movie" | "tv" }> = ({
   movieId,
   showType,
 }) => {
