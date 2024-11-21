@@ -34,9 +34,9 @@ const MovieCard = ({
       <PopoverTrigger>
         <Card
           padding={0}
-          margin={0}
+          marginTop={{base:5, lg:0}}
           borderRadius={0}
-          width={"12%"}
+          width={{base:'45%', sm:"30%", lg:"12%"}}
           _hover={{ cursor: "pointer" }}
           overflow={"visible"}
         >
@@ -63,7 +63,7 @@ const MovieCard = ({
               <Box>
                 <LuTv />
                 <Text color={"red"} noOfLines={1}>
-                  {genres[0].name}
+                  {genres[0]?.name}
                 </Text>
                 <Link to={`/movie/${id}`}>
                   {" "}

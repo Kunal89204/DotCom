@@ -17,18 +17,18 @@ const PopularShows: React.FC = () => {
       const response = await fetchData.fetchPopularTVShows(1);
 
       // Fetch details for each show
-      const showDetailsPromises = response.results.map(async (el: TVShow | any) => {
-        const details = await fetchData.fetchTVShowDetails(el.id);
-        return details;
-      });
+      const showDetailsPromises = response.results.map(
+        async (el: TVShow | any) => {
+          const details = await fetchData.fetchTVShowDetails(el.id);
+          return details;
+        }
+      );
 
       // Wait for all details to be fetched
       const allShowDetails = await Promise.all(showDetailsPromises);
 
       // Update the state with fetched show details
       setPopularTVShows(allShowDetails);
-
-      
     } catch (error) {
       console.log("Error fetching popular TV shows", error);
     }
@@ -41,20 +41,39 @@ const PopularShows: React.FC = () => {
   return (
     <Box p={4}>
       <Box py={10}>
-        <Text fontWeight={"semibold"} color={"gray.500"} >
+        <Text fontWeight={"semibold"} color={"gray.500"}>
           ONLINE STREAMING
         </Text>
-        <Text fontSize={"xxx-large"} fontWeight={"semibold"}> 
+        <Text
+          fontSize={{ base: "x-large", sm:"xx-large", lg: "xxx-large" }}
+          fontWeight={"semibold"}
+        >
           Watch Popular Shows
         </Text>
       </Box>
 
       <Box pb={10}>
-        <Swiper slidesPerView={5} spaceBetween={30} className="mySwiper">
+        <Swiper 
+        slidesPerView={5} 
+        spaceBetween={30} 
+        breakpoints={
+          {
+            320: { slidesPerView: 2 },
+            640: { slidesPerView: 3 },
+            1024: { slidesPerView: 5 },
+          }
+        }
+        className="mySwiper">
           {popularTVShows.map((show) => (
             <SwiperSlide key={show.id}>
               <Link to={`/tv/${show.id}`}>
-                <ShowCard name={show.name} poster_path={show.poster_path} number_of_seasons={show.number_of_seasons} first_air_date={show.first_air_date} overview={show.overview} />
+                <ShowCard
+                  name={show.name}
+                  poster_path={show.poster_path}
+                  number_of_seasons={show.number_of_seasons}
+                  first_air_date={show.first_air_date}
+                  overview={show.overview}
+                />
               </Link>
             </SwiperSlide>
           ))}

@@ -38,7 +38,7 @@ const PopularMovies = () => {
         </Heading>
       </Box>
 
-      <Flex wrap="wrap" gap={12} justify="center" px={20}>
+      <Flex wrap="wrap" gap={{base:2,sm:6, lg:12}} justify="center" px={{base:2, lg:20}}>
         {popularMovies &&
           popularMovies.slice(0, 12).map((mov) => (
             <MovieCard
