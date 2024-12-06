@@ -4,7 +4,7 @@ export interface TVShow {
   poster_path: string;
   overview: string;
   number_of_seasons: number;
-  first_air_date: string; // Dates should typically be strings
+  first_air_date: string; 
 }
 
 export interface MovieTypes {
@@ -14,7 +14,7 @@ export interface MovieTypes {
   id: number;
   title: string;
   poster_path: string;
-  release_date: string; // Dates should typically be strings
+  release_date: string;
   vote_average: number;
   overview: string;
   genres: Array<GenreTypes>;
@@ -28,27 +28,27 @@ export interface TVShowDetails {
   seasons: any;
   id?: number;
   name: string;
-  number_of_seasons: number;  // Number of seasons for the TV show
-  number_of_episodes: number; // Total number of episodes
-  backdrop_path: string;      // Backdrop image path
-  poster_path: string;        // Poster image path
-  tagline?: string;           // Optional tagline
-  genres: Array<GenreTypes>;  // Array of genre objects
-  overview: string;           // Show overview/description
-  runtime?: number;           // Optional runtime per episode
-  first_air_date: string;     // First air date of the show
-  last_air_date?: string;     // Optional field for the last air date
-  in_production?: boolean;    // Optional: whether the show is still in production
-  popularity?: number;        // Optional popularity score
-  vote_average?: number;      // Optional average user rating
-  vote_count?: number;        // Optional total number of votes
-  homepage?: string;          // Optional homepage URL
+  number_of_seasons: number;  
+  number_of_episodes: number; 
+  backdrop_path: string;      
+  poster_path: string;        
+  tagline?: string;           
+  genres: Array<GenreTypes>;  
+  overview: string;           
+  runtime?: number;           
+  first_air_date: string;     
+  last_air_date?: string;     
+  in_production?: boolean;    
+  popularity?: number;       
+  vote_average?: number;     
+  vote_count?: number;      
+  homepage?: string;         
   status?: string; 
   episode_run_time: number[];
-  episodes: any          // Current status of the show (e.g., "Returning Series")
+  episodes: any         
 }
 
-// Example Episode type (ensure this matches your API response)
+
 export interface Episode {
   still_path: string;
   episode_number: number;
@@ -61,7 +61,7 @@ export interface Episode {
 
 
 export interface TVEpisode {
-  air_date: string; // The date the episode aired (as string)
+  air_date: string; 
   episode_number: number;
   id: number;
   name: string;
@@ -72,7 +72,7 @@ export interface TVEpisode {
 }
 
 export interface TVSeasonDetails {
-  air_date: string; // String for consistency with dates
+  air_date: string; 
   episodes: TVEpisode[];
   id: number;
   name: string;
@@ -89,16 +89,16 @@ export interface GenreTypes {
 }
 
 export interface CastTypes {
-  adult: boolean; // true or false (adult content or not)
-  gender: number; // typically 1 (female), 2 (male), or 0 (unknown)
+  adult: boolean;
+  gender: number; 
   id: number;
-  known_for_department: string; // e.g., "Acting"
+  known_for_department: string; 
   name: string;
   original_name: string;
   popularity: number;
-  profile_path: string | null; // path to the cast member's profile image or null
+  profile_path: string | null;
   cast_id: number;
   character: string;
   credit_id: string;
-  order: number; // order of appearance in the credits
+  order: number; 
 }

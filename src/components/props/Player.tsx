@@ -10,7 +10,7 @@ const Player: React.FC<PlayerProps> = ({ videoId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-
+const videoUrl: string = ``
 
   useEffect(() => {
     // Reset loading and error states when videoId changes

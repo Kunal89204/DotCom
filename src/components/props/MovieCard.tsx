@@ -36,7 +36,7 @@ const MovieCard = ({
           padding={0}
           marginTop={{base:5, lg:0}}
           borderRadius={0}
-          width={{base:'45%', sm:"30%", lg:"12%"}}
+          width={{base:'45%', sm:"30%", md:"20%", lg:"12%"}}
           _hover={{ cursor: "pointer" }}
           overflow={"visible"}
         >
@@ -59,23 +59,25 @@ const MovieCard = ({
             bg={section == "top" ? "white" : "black"}
             color={section == "top" ? "black" : "white"}
           >
-            <Flex justifyContent={"space-between"} py={2} width={"100%"}>
+            <Flex justifyContent={"space-between"}  py={2} width={"100%"}>
               <Box>
-                <LuTv />
-                <Text color={"red"} noOfLines={1}>
+                <LuTv className="text-sm sm:text-lg" />
+                <Text color={"red"} noOfLines={1} fontSize={{base:'3.5vw',sm:"2.5vw", md:"2vw",lg:"1.5vw", xl:"1vw"}}>
                   {genres[0]?.name}
                 </Text>
-                <Link to={`/movie/${id}`}>
+                <Link to={`/movie/${id}`} >
                   {" "}
                   <Text
                     color={section == "top" ? "black" : "white"}
                     noOfLines={1}
+                    fontSize={{base:'4vw', sm:"3vw", md:"2vw", lg:"1.6vw", xl:"1.1vw" }}
+                    
                   >
                     {title}
                   </Text>
                 </Link>
               </Box>
-              <Text>{release_date.toString().split("-")[0]}</Text>
+              <Text fontSize={{base:'3.5vw', sm:"2.5vw", md:"2vw",lg:"1.5vw", xl:"1vw"}}>{release_date.toString().split("-")[0]}</Text>
             </Flex>
           </CardFooter>
         </Card>

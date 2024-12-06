@@ -56,7 +56,7 @@ const PopularMovies = () => {
           ))}
       </Flex>
 
-      <Box py={20} textAlign={"center"} width={"100%"}>
+      <Box py={{base:12, lg:20}} textAlign={"center"} width={"100%"}>
         <Link to={'/movies/popular'}>
         <Button
           bg={"red"}
@@ -64,9 +64,9 @@ const PopularMovies = () => {
           borderColor={"transparent"}
           color={"white"}
           borderRadius={0}
-          px={14}
-          py={8}
-          fontSize={"large"}
+          px={{base:6, lg:14}}
+          py={{base:3,lg:8}}
+          fontSize={{base:"16px"}}
           _hover={{
             bg: "black",
             color: "white",

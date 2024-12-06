@@ -28,11 +28,12 @@ const TopRated = () => {
     fetchTopMovies();
   }, []);
   return (
-    <Box>
-      <Flex flexWrap={"wrap"} gap={8} p={10}>
-        <Box width={'26%'}>
-          <Heading as={"h2"}>Top Rated Movies to Watch Now</Heading>
+    <Box className="pb-10">
+      <Flex direction={{base:'column', lg:"row"}} flexWrap={"wrap"} gap={{base:2,sm:6, lg:12}}  px={{base:2,md:"20px", lg:20}}>
+        <Box width={{base:'full', lg:'26%'}} pt={{base:10}}>
+          <Heading as={"h2"} textAlign={{base:"center", lg:'start'}}>Top Rated Movies to Watch Now</Heading>
         </Box>
+        <Flex flexWrap={"wrap"} justifyContent={"space-around"} gap={{base:2,sm:6, lg:16}}  >
         {topMovies &&
           topMovies
             .slice(0, 12)
@@ -50,6 +51,7 @@ const TopRated = () => {
                 section="top"
               />
             ))}
+        </Flex>
       </Flex>
     </Box>
   );

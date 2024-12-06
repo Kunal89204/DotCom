@@ -19,7 +19,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Recommended from "../components/Recommended";
 
-
 const TVPlayer = () => {
   const { tvid, sno, epno } = useParams();
   const [showData, setShowData] = useState<TVShowDetails | null>(null);
@@ -28,12 +27,12 @@ const TVPlayer = () => {
   const [seasonNumber, setSeasonNumber] = useState<number>(1);
   const [seasonInfo, setSeasonInfo] = useState<TVShowDetails | null>(null);
 
+  const videoUrl: string = ``;
 
   const fetchTVShowDetails = async () => {
     try {
       const response = await fetchData.fetchTVShowDetails(Number(tvid));
       setShowData(response);
-      
     } catch (error) {
       console.log(error);
       setError(true);
@@ -47,7 +46,6 @@ const TVPlayer = () => {
         seasonNumber
       );
       setSeasonInfo(response);
-      ;
     } catch (error) {
       console.log(error);
       setError(true);
@@ -137,64 +135,64 @@ const TVPlayer = () => {
           <TabPanels>
             {showData?.seasons.map((_: any, i: number) => (
               <TabPanel key={i} display={"flex"} gap={"10px"}>
-                <Swiper
-                  spaceBetween={10}
-                  slidesPerView={5} 
-                >
+                <Swiper spaceBetween={10} slidesPerView={5}>
                   {seasonInfo?.episodes.map((ep: Episode, index: number) => (
                     <SwiperSlide key={index}>
-                      <Link to={`/tvplayer/${showData?.id}/season/${seasonNumber}/episode/${ep.episode_number}`}>
-                      <Box
-                        position="relative"
-                        overflow="hidden"
-                        borderRadius="md"
-                        boxShadow="md"
-                        _hover={{
-                          transform: "scale(1.05)",
-                          transition: "0.3s",
-                        }}
+                      <Link
+                        to={`/tvplayer/${showData?.id}/season/${seasonNumber}/episode/${ep.episode_number}`}
                       >
-                        {/* Conditionally render the image, use a placeholder if not available */}
-                        {ep.still_path ? (
-                          <Image
-                            src={`https://image.tmdb.org/t/p/w342${ep.still_path}`}
-                            alt={`Episode ${ep.episode_number}`}
-                            borderRadius={10}
-                            objectFit="cover"
-                            width="100%"
-                            height="auto"
-                          />
-                        ) : (
-                          <Box
-                            width="100%"
-                            height="165px"
-                            backgroundColor="gray.700"
-                            borderRadius={10}
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
-                          >
-                            <Text color="white" fontSize="sm">
-                              No Image Available
-                            </Text>
-                          </Box>
-                        )}
-
                         <Box
-                          position="absolute"
-                          top={2}
-                          left={2}
-                          bg="purple.600"
-                          color="white"
-                          fontSize="xs"
-                          px={2}
-                          py={1}
-                          borderRadius="full"
-                          boxShadow="sm"
+                          position="relative"
+                          overflow="hidden"
+                          borderRadius="md"
+                          boxShadow="md"
+                          _hover={{
+                            transform: "scale(1.05)",
+                            transition: "0.3s",
+                          }}
                         >
-                          Ep {ep.episode_number}
+                          {/* Conditionally render the image, use a placeholder if not available */}
+                          {ep.still_path ? (
+                            <Image
+                              src={`https://image.tmdb.org/t/p/w342${ep.still_path}`}
+                              alt={`Episode ${ep.episode_number}`}
+                              borderRadius={10}
+                              objectFit="cover"
+                              width="100%"
+                              height="auto"
+                            />
+                          ) : (
+                            <Box
+                              width="100%"
+                              height="165px"
+                              backgroundColor="gray.700"
+                              borderRadius={10}
+                              display="flex"
+                              justifyContent="center"
+                              alignItems="center"
+                            >
+                              <Text color="white" fontSize="sm">
+                                No Image Available
+                              </Text>
+                            </Box>
+                          )}
+
+                          <Box
+                            position="absolute"
+                            top={2}
+                            left={2}
+                            bg="purple.600"
+                            color="white"
+                            fontSize="xs"
+                            px={2}
+                            py={1}
+                            borderRadius="full"
+                            boxShadow="sm"
+                          >
+                            Ep {ep.episode_number}
+                          </Box>
                         </Box>
-                      </Box></Link>
+                      </Link>
 
                       <Flex
                         justifyContent="space-between"
@@ -241,7 +239,7 @@ const TVPlayer = () => {
           </TabPanels>
         </Tabs>
       </Box>
-      <Recommended movieId={tvid} showType="tv"/>
+      <Recommended movieId={tvid} showType="tv" />
     </>
   );
 };

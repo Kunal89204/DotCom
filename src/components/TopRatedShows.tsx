@@ -25,7 +25,7 @@ const TopRatedShows: React.FC = () => {
       <Flex wrap={"wrap"} gap={3}>
         <Box
           width="30%"
-          border="1px solid"
+          
           p={6}
           borderRadius="md"
           position="relative"
