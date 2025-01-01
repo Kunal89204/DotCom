@@ -1,5 +1,6 @@
 import { Image } from "@chakra-ui/react";
 import React, { useEffect, useRef } from "react";
+import img from '../../public/spiritedaway.jpg'
 
 
 interface CarouselProps {
@@ -61,6 +62,13 @@ const Hero: React.FC<CarouselProps> = ({
       topic: "The Last Dance",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
+    {
+      img: "https://wallpapercat.com/w/full/1/6/d/138467-3840x2160-desktop-4k-spirited-away-wallpaper-image.jpg",
+      author: "Spirited Away",
+      title: "Spirited Away",
+      topic: "The Last Dance",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    },
   ];
 
   const thumbnails = [
@@ -87,6 +95,11 @@ const Hero: React.FC<CarouselProps> = ({
     {
       img: "https://wallpapercat.com/w/full/7/e/b/117656-1920x1080-desktop-1080p-your-name-background.jpg",
       title: "Your Name",
+      description: "Description",
+    },
+    {
+      img: "https://wallpapercat.com/w/full/1/6/d/138467-3840x2160-desktop-4k-spirited-away-wallpaper-image.jpg",
+      title: "Sprited Away",
       description: "Description",
     },
     {
