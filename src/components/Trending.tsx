@@ -17,10 +17,10 @@ import "swiper/css";
 import { Link } from "react-router-dom";
 
 interface showType {
-  showType: 'movie'|'tv'
+  showType: 'movie' | 'tv'
 }
 
-const Trending: React.FC<showType> = ({showType}) => {
+const Trending: React.FC<showType> = ({ showType }) => {
   const [timeWindow, setTimeWindow] = useState<string>("day");
   const [trendingMovies, setTrendingMovies] = useState<MovieTypes[]>([]);
 
@@ -38,57 +38,57 @@ const Trending: React.FC<showType> = ({showType}) => {
     fetchTrendingMovies();
   }, [timeWindow]);
   return (
-    <Box p={10}>
-     <Breadcrumb pb={10}>
-  <BreadcrumbItem>
-    <BreadcrumbLink onClick={() => setTimeWindow("day")}>
-      <Flex alignItems="center">
-        <Badge ml={2} colorScheme="red" p={2}> Today</Badge>
-      </Flex>
-    </BreadcrumbLink>
-  </BreadcrumbItem>
+    <Box p={10} bg={showType === 'movie' ? 'white' : 'black'}>
+      <Breadcrumb pb={10}>
+        <BreadcrumbItem>
+          <BreadcrumbLink onClick={() => setTimeWindow("day")}>
+            <Flex alignItems="center">
+              <Badge ml={2} colorScheme="red" p={2}> Today</Badge>
+            </Flex>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
 
-  <BreadcrumbItem>
-    <BreadcrumbLink onClick={() => setTimeWindow("week")} >
-      <Flex alignItems="center">
-        <Badge ml={2} colorScheme="orange" p={2}>This Week </Badge>
-      </Flex>
-    </BreadcrumbLink>
-  </BreadcrumbItem>
-</Breadcrumb>
-      <Flex alignItems={'center'} flexDir={showType === 'movie'?'row':'row-reverse'}>
-  <Box width="80%">
-    <Swiper spaceBetween={20} slidesPerView={6}>
-      {trendingMovies.map((movie) => (
-        <SwiperSlide key={movie.id}>
-          <Link to={showType === 'movie'?`/movie/${movie.id}`:`/tv/${movie.id}`}>
-          <Box overflow="hidden" boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" borderRadius={'10px'} _hover={{borderRadius:'0px'}} transitionDuration={'0.35s'}>
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              width="100%"
-              height="auto"
-              borderRadius={'10px'}
-              _hover={{borderRadius:'0px'}}
-              transitionDuration={'0.35s'}
-            />
-            <Box px={1} bg="white" color="black" textAlign="left" fontSize="sm">
-              <Text color={'gray'} fontSize={'small'}>{movie.release_date}</Text>
-              <Box fontWeight="bold" noOfLines={2}>{showType === 'movie'? movie.title:movie.name}</Box>
-            </Box>
-          </Box>
-          </Link>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  </Box>
+        <BreadcrumbItem>
+          <BreadcrumbLink onClick={() => setTimeWindow("week")} >
+            <Flex alignItems="center">
+              <Badge ml={2} colorScheme="orange" p={2}>This Week </Badge>
+            </Flex>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <Flex alignItems={'center'} flexDir={showType === 'movie' ? 'row' : 'row-reverse'}>
+        <Box width="80%">
+          <Swiper spaceBetween={20} slidesPerView={6}>
+            {trendingMovies.map((movie) => (
+              <SwiperSlide key={movie.id} >
+                <Link to={showType === 'movie' ? `/movie/${movie.id}` : `/tv/${movie.id}`}>
+                  <Box overflow="hidden" boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" borderRadius={'10px'} _hover={{ borderRadius: '0px' }} transitionDuration={'0.35s'}>
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      alt={movie.title}
+                      width="100%"
+                      height="auto"
+                      borderRadius={'10px'}
+                      _hover={{ borderRadius: '0px' }}
+                      transitionDuration={'0.35s'}
+                    />
+                    <Box px={1} bg="" color={showType == 'tv' ? "white" : "black"} textAlign="left" fontSize="sm">
+                      <Text color={'gray'} fontSize={'small'}>{movie.release_date}</Text>
+                      <Box fontWeight="bold" noOfLines={2}>{showType === 'movie' ? movie.title : movie.name}</Box>
+                    </Box>
+                  </Box>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Box>
 
-  <Box width="20%" mx={10} textAlign="center" py={5} borderRadius="md" boxShadow="lg">
-    <Heading as="h2" size="lg" className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-orange-400 to-yellow-500">
-      Trending {showType} Right Now
-    </Heading>
-  </Box>
-</Flex>
+        <Box width="20%" mx={10} textAlign="center" py={5} borderRadius="md" boxShadow="lg">
+          <Heading as="h2" size="lg" className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-orange-400 to-yellow-500">
+            Trending {showType} Right Now
+          </Heading>
+        </Box>
+      </Flex>
 
     </Box>
   );

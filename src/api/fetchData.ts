@@ -1,9 +1,9 @@
 import axios from "axios";
 
 type DiscoverMoviesParams = {
-    [key: string]: any; // Allows any property with any value
-  };
-  
+  [key: string]: any; // Allows any property with any value
+};
+
 
 interface fetchData {
   fetchMovie: (movieId: number) => Promise<void>;
@@ -209,18 +209,18 @@ const fetchData: fetchData = {
 
   fetchDiscoverMovies: async (params = {}) => {
     try {
-        const response = await axiosInstance.get('/discover/movie', {
-            params: {
-                ...params, // Spread operator to include all parameters
-            },
-        });
+      const response = await axiosInstance.get('/discover/movie', {
+        params: {
+          ...params, // Spread operator to include all parameters
+        },
+      });
 
-        return response.data;
+      return response.data;
     } catch (error) {
-        console.log(error);
-        return error;
+      console.log(error);
+      return error;
     }
-}
+  }
 
 };
 

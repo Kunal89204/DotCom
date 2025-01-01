@@ -21,18 +21,16 @@ const TopRatedShows: React.FC = () => {
     fetchTopRatedShows();
   }, []);
   return (
-    <Box bg={"black"} color={"white"} p={10}>
+    <Box bg={"white"} color={"white"} p={10}>
       <Flex wrap={"wrap"} gap={3}>
         <Box
           width="30%"
-          
           p={6}
           borderRadius="md"
           position="relative"
-          backgroundImage={`https://image.tmdb.org/t/p/w500${bgUrl}`}
           backgroundSize="cover"
           backgroundPosition="center"
-          color="white"
+          color="black"
         >
           <Box
             position="absolute"
@@ -40,7 +38,6 @@ const TopRatedShows: React.FC = () => {
             left={0}
             width="100%"
             height="100%"
-            bg="rgba(0, 0, 0, 0.6)"
             zIndex={1}
             borderRadius="md"
           />

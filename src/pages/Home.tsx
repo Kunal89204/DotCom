@@ -25,8 +25,8 @@ const Home: React.FC = () => {
       <TopRated />
       <ShowBanner />
       <Trending showType='movie'  />
-      <MovieBanner />
       <Trending showType='tv'  />
+      <MovieBanner />
       <TopRatedShows />
       
     </div> 
