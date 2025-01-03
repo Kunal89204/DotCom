@@ -38,20 +38,7 @@ body::-webkit-scrollbar-thumb{
 
 }
 
-header{
-    width: 1140px;
-    max-width: 80%;
-    margin: auto;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 100;
-}
-header a{
-    color: #eee;
-    margin-right: 40px;
-}
+
 /* carousel */
 .carousel{
     height: 100vh;

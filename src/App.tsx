@@ -7,6 +7,7 @@ import TVPlayer from './pages/TVPlayer';
 import TV from './pages/TV';
 import Footer from './components/Footer';
 import Popular from './pages/Popular';
+import Navbar from './components/Navbar';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop /> {/* Integrated ScrollToTop component directly */}
+      <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/movie/:movieid' element={<Movie />} />

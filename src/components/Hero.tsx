@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/react";
 import React, { useEffect, useRef } from "react";
-import img from '../../public/spiritedaway.jpg'
+// import img from '../../public/spiritedaway.jpg'
 
 
 interface CarouselProps {
@@ -22,52 +22,52 @@ const Hero: React.FC<CarouselProps> = ({
   const slides = [
     {
       img: "https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg",
-      author: "Return to Pandora.",
+      author: "James Cameron",
       title: "Avatar",
       topic: "The Way of Water",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Return to Pandora.",
     },
     {
       img: "https://image.tmdb.org/t/p/original/uzIGtyS6bbnJzGsPL93WCF1FWm8.jpg",
-      author: "First you watch it. Then you die.",
+      author: "Gore Verbinski",
       title: "Pirates of the Caribbean:",
       topic: "On Stranger Tides",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "First you watch it. Then you die.",
     },
     {
       img: "https://image.tmdb.org/t/p/original/y3aWOInifbGKXM34KjtcMITrZRZ.jpg",
-      author: "Death has never been closer.",
+      author: "James Wong.",
       title: "Final Destination",
       topic: "5",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Death has never been closer.",
     },
     {
       img: "https://image.tmdb.org/t/p/original//3V4kLQg0kSqPLctI5ziYWabAZYF.jpg",
-      author: "Venom",
+      author: "Ruben Fleischer",
       title: "Venom",
       topic: "The Last Dance",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Embrace your inner anti-hero.",
     },
     {
       img: "https://image.tmdb.org/t/p/original//oHPoF0Gzu8xwK4CtdXDaWdcuZxZ.jpg",
-      author: "The Lion king",
+      author: "Rog Allers",
       title: "The lion king",
       topic: "The Last Dance",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "The King Has Returned",
     },
     {
       img: "https://wallpapercat.com/w/full/7/e/b/117656-1920x1080-desktop-1080p-your-name-background.jpg",
-      author: "Your Name",
+      author: "Makoto Shinkai",
       title: "Your Name",
       topic: "The Last Dance",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Kimi No Na Wa.",
     },
     {
       img: "https://wallpapercat.com/w/full/1/6/d/138467-3840x2160-desktop-4k-spirited-away-wallpaper-image.jpg",
-      author: "Spirited Away",
+      author: "Hayao Miyazaki",
       title: "Spirited Away",
       topic: "The Last Dance",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Sen to Chihiro no Kamikakushi",
     },
   ];
 
@@ -157,13 +157,7 @@ const Hero: React.FC<CarouselProps> = ({
 
   return (
     <>
-      <header>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#">Contacts</a>
-          <a href="#">Info</a>
-        </nav>
-      </header>
+      
 
       <div className="carousel" ref={carouselRef}>
         <div className="list" ref={sliderRef}>
@@ -177,7 +171,7 @@ const Hero: React.FC<CarouselProps> = ({
                 <div className="topic">{slide.topic}</div>
                 <div className="des">{slide.description}</div>
                 <div className="buttons">
-                  <button>SEE MORE</button>
+                  <button>Watch Now</button>
                   <button>SUBSCRIBE</button>
                 </div>
               </div>

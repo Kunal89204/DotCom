@@ -47,7 +47,7 @@ const TV = () => {
 
   return (
     <>
-    <Box p={0}>
+    <Box p={0} >
       {loading ? (
         // Pre-loader spinner animation
         <Box
@@ -84,6 +84,7 @@ const TV = () => {
             bgPosition="center"
             bgSize="cover"
             bgRepeat="no-repeat"
+            pt={{lg:20}}
           >
             {/* Dark overlay for better readability */}
             <Box
