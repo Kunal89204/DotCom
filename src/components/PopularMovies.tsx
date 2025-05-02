@@ -13,17 +13,23 @@ const PopularMovies = () => {
   const fetchPopularMovies = async () => {
     try {
       const response = await fetchData.fetchPopularMovies(20);
-      const movieDetailsPromises = response.results.map(async (el:MovieTypes|any) => {
-        const details = await fetchData.fetchMovie(el.id)
-        return details
-      })
-
-      const allMovieDetails = await Promise.all(movieDetailsPromises)
-      setPopularMovies(allMovieDetails);
+      const movieDetailsPromises = response.results.map(
+        async (el: MovieTypes | any) => {
+          const details = await fetchData.fetchMovie(el.id);
+          return details;
+        }
+      );
+  
+      const allMovieDetails = await Promise.all(movieDetailsPromises);
+      const PopularMovies = allMovieDetails.filter((movie: MovieTypes | any) =>
+        !movie.genres.some((el: { id: number; name: string }) => el.name === "Romance")
+      );
+      setPopularMovies(PopularMovies);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   useEffect(() => {
     fetchPopularMovies();
