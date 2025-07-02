@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Image, Text, VStack, Badge, Flex } from '@chakra-ui/react';
+
+import { Box, Image, Text, VStack, Badge} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const ResultComp = (results: {results: {poster_path: string, title: string, overview: string, id: number, genre_ids: number[], media_type?: string, name?: string, release_date?: string, first_air_date?: string, vote_average?: number}}) => {
