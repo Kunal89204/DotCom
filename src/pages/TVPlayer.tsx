@@ -27,7 +27,7 @@ const TVPlayer = () => {
   const [seasonNumber, setSeasonNumber] = useState<number>(1);
   const [seasonInfo, setSeasonInfo] = useState<TVShowDetails | null>(null);
 
-  const videoUrl: string = ``;
+  const videoUrl: string = `https://multiembed.mov/?video_id=${tvid}&tmdb=1&s=${seasonNumber}&e=${epno}`;
 
   const fetchTVShowDetails = async () => {
     try {

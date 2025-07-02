@@ -18,8 +18,8 @@ const Result = () => {
     fetchSearchResults();
   }, [id]);
   return (
-    <div>
-      {results?.results?.length > 0 ? <ResultComp /> : <div>No results found</div>}
+    <div className="bg-black grid grid-cols-4 gap-4 p-4 pt-32">
+      {results?.results?.length > 0 ? results?.results?.map((result: any) => <ResultComp results={result} />) : <div>No results found</div>}
     </div>
   );
 };
