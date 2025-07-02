@@ -1,9 +1,9 @@
 
 
-const ResultComp = () => {
+const ResultComp = (results: any) => {
   return (
     <div>
-      hello
+      <img src={`https://image.tmdb.org/t/p/w500/${results?.poster_path}`} alt="" />
     </div>
   )
 }

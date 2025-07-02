@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const TopRatedShows: React.FC = () => {
   const [topRatedShows, setTopRatedShows] = useState<TVShowDetails[]>([]);
-  const [bgUrl, setBgUrl] = useState("");
+  // const [bgUrl, setBgUrl] = useState("");
   const fetchTopRatedShows = async () => {
     try {
       const response = await fetchData.fetchTopRatedShows();
@@ -53,7 +53,7 @@ const TopRatedShows: React.FC = () => {
 
         {topRatedShows &&
           topRatedShows.slice(0, 10).map((show, i) => (
-            <Box p={0} width={"15%"}>
+            <Box p={0} width={"15%"} key={i}>
               <Link to={`/tv/${show.id}`}>
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${show?.backdrop_path}`}

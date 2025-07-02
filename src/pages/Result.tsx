@@ -11,7 +11,7 @@ const Result = () => {
   const fetchSearchResults = async () => {
     const response = await fetchData.fetchSearchResults(id);
     setResults(response);
-    console.log(results);
+    console.log(results)
   };
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Result = () => {
   }, [id]);
   return (
     <div>
-      <ResultComp />
+      {results?.results?.length > 0 ? <ResultComp /> : <div>No results found</div>}
     </div>
   );
 };

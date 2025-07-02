@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import {
     Box,
     Flex,
@@ -22,6 +22,22 @@ const Navbar: React.FC = () => {
     // const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
     const gap = useBreakpointValue({ base: 4, md: 8 });
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearchKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && searchQuery.trim()) {
+            navigate(`/search/${encodeURIComponent(searchQuery.trim())}`);
+            setSearchQuery('');
+        }
+    };
+
+    const handleSearchIconClick = () => {
+        if (searchQuery.trim()) {
+            navigate(`/search/${encodeURIComponent(searchQuery.trim())}`);
+            setSearchQuery('');
+        }
+    };
+
     return (
         <Box
             as="header"
@@ -87,10 +103,8 @@ const Navbar: React.FC = () => {
                 {/* Search Bar */}
                 <Box mt={{ base: 4, md: 0 }} ml={{ base: 0, md: 4 }} w={{ base: 'full', md: '300px' }}>
                     <InputGroup>
-                        <InputLeftElement pointerEvents="none">
-                            <Icon onClick={() => {
-                                navigate('/search');
-                            }} as={SearchIcon} color="gray.500" />
+                        <InputLeftElement pointerEvents="auto" cursor="pointer">
+                            <Icon onClick={handleSearchIconClick} as={SearchIcon} color="gray.500" />
                         </InputLeftElement>
                         <Input
                             type="text"
@@ -102,6 +116,9 @@ const Navbar: React.FC = () => {
                             _hover={{ bg: 'gray.700' }}
                             _focus={{ bg: 'gray.700', boxShadow: 'outline' }}
                             size="md"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyPress={handleSearchKeyPress}
                         />
                     </InputGroup>
                 </Box>

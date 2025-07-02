@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Button, VStack, Flex } from "@chakra-ui/react";
+import {  Text, Button, VStack, Flex } from "@chakra-ui/react";
 import { MovieTypes } from "../types/TVShowTypes";
 import fetchData from "../api/fetchData";
 import { Link } from "react-router-dom";
