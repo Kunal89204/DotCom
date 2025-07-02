@@ -15,13 +15,13 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 import { SearchIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
     const { isOpen, onToggle } = useDisclosure();
-    const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
+    // const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
     const gap = useBreakpointValue({ base: 4, md: 8 });
-
+    const navigate = useNavigate();
     return (
         <Box
             as="header"
@@ -88,7 +88,9 @@ const Navbar: React.FC = () => {
                 <Box mt={{ base: 4, md: 0 }} ml={{ base: 0, md: 4 }} w={{ base: 'full', md: '300px' }}>
                     <InputGroup>
                         <InputLeftElement pointerEvents="none">
-                            <Icon as={SearchIcon} color="gray.500" />
+                            <Icon onClick={() => {
+                                navigate('/search');
+                            }} as={SearchIcon} color="gray.500" />
                         </InputLeftElement>
                         <Input
                             type="text"

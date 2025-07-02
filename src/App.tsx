@@ -8,6 +8,7 @@ import TV from './pages/TV';
 import Footer from './components/Footer';
 import Popular from './pages/Popular';
 import Navbar from './components/Navbar';
+import Result from './pages/Result';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -33,6 +34,7 @@ const App: React.FC = () => {
         <Route path='/tvplayer/:tvid/season/:sno/episode/:epno' element={<TVPlayer />} />
         <Route path='/movies/popular' element={<Popular media='movie' />} />
         <Route path='/tv/popular' element={<Popular media='tv' />} />
+        <Route path='/search/:id' element={<Result />} />
       </Routes>
       <ConditionalFooter />
     </Router>

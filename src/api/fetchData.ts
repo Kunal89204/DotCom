@@ -36,6 +36,7 @@ interface fetchData {
   ) => Promise<any>;
   fetchMediaImages: () => Promise<any>;
   fetchDiscoverMovies: (params: DiscoverMoviesParams) => Promise<any>;
+  fetchSearchResults: (query: string|undefined) => Promise<any>;
 }
 
 const baseUrl: string = "https://api.themoviedb.org/3";
@@ -220,7 +221,20 @@ const fetchData: fetchData = {
       console.log(error);
       return error;
     }
-  }
+  },
+
+  fetchSearchResults: async (query: string|undefined) => {
+    try {
+      const response = await axiosInstance.get(`/search/multi`, {
+        params: { query },
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
 
 };
 

@@ -10,7 +10,9 @@ const Player: React.FC<PlayerProps> = ({ videoId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-const videoUrl: string = ``
+const videoUrl: string = `https://vidsrc.me/embed/movie?tmdb=${videoId}`
+
+
 
   useEffect(() => {
     // Reset loading and error states when videoId changes
@@ -55,7 +57,7 @@ const videoUrl: string = ``
           className="rounded-xl"
           style={{
             position: 'absolute',
-            top: "6%",
+            top: "10%",
             left: '10%',
             right: '10%',
             bottom: 10,
